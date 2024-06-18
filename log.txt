@@ -1,0 +1,332 @@
+[[16  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  4  4  4  4  0  0  0  0]
+ [ 0  4  0  4  0  4  4  0  0  0  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  2  2  2  2  2  2  2  2]
+ [ 0  0  4  0  0  0  2  2  0  0  0  4  2  2  0  0]
+ [ 0  0  4  0  0  0  2  2  0  0  4  0  2  2  0  0]
+ [ 0  2  0  2  2  0  0  2  2  0  2  0  0  2  2  0]
+ [ 0  2  0  2  2  0  0  2  0  2  0  2  2  0  0  2]
+ [ 0  0  0  0  4  4  0  0  0  0  0  0  2  2  2  2]
+ [ 0  0  0  0  4  4  0  0  0  0  0  0  2  2  2  2]
+ [ 0  0  0  0  0  4  4  0  2  2  2  2  0  0  0  0]
+ [ 0  4  0  4  0  0  0  0  0  0  0  0  2  2  2  2]
+ [ 0  0  4  0  0  0  2  2  4  0  0  0  0  0  2  2]
+ [ 0  0  4  0  0  0  2  2  0  4  0  0  0  0  2  2]
+ [ 0  2  0  2  2  0  0  2  0  2  0  2  0  2  2  0]
+ [ 0  2  0  2  2  0  0  2  2  0  2  0  2  0  0  2]]
+[[14 11 13  9]
+ [ 9 14 11 13]
+ [13  9 14 11]
+ [11 13  9 14]]
+Best Prob: -89
+a1        8
+b1        1
+c1        4
+d1       10
+a2        1
+d         5
+b2        5
+c2        1
+d2        6
+c2s       8
+d2s       8
+Col10     3
+Col20     8
+Col30    11
+b3        8
+c3        4
+d3       12
+c3s       6
+d3s       6
+b4        6
+b3s      14
+d4        3
+b4s      10
+d4s      13
+Name: 1, dtype: int64
+Best Prob: -87
+a1        8
+b1        1
+c1        4
+d1       10
+a2        1
+d         5
+b2        5
+c2        1
+d2        6
+c2s       8
+d2s       8
+Col10     3
+Col20     8
+Col30    11
+b3        8
+c3        4
+d3       12
+c3s       6
+d3s       6
+b4        7
+b3s      14
+d4        3
+b4s      15
+d4s       2
+Name: 1, dtype: int64
+Best Prob: -86
+a1        8
+b1        1
+c1        4
+d1       10
+a2        1
+d         5
+b2        5
+c2        1
+d2        6
+c2s       8
+d2s       8
+Col10     3
+Col20     8
+Col30    11
+b3        8
+c3        4
+d3       12
+c3s       6
+d3s       6
+b4        8
+b3s      14
+d4        3
+b4s      15
+d4s       2
+Name: 1, dtype: int64
+Best Prob: -84
+a1        8
+b1        1
+c1        4
+d1       10
+a2        1
+d         5
+b2        5
+c2        1
+d2        6
+c2s      10
+d2s      10
+Col10     7
+Col20    10
+Col30    13
+b3        3
+c3        5
+d3        2
+c3s       6
+d3s       6
+b4        7
+b3s      14
+d4       11
+b4s      11
+d4s      14
+Name: 1, dtype: int64
+Best Prob: -83
+a1        8
+b1        1
+c1        4
+d1       10
+a2        1
+d         5
+b2        5
+c2        1
+d2        6
+c2s      10
+d2s      10
+Col10     7
+Col20    10
+Col30    13
+b3        9
+c3       10
+d3        2
+c3s       6
+d3s       6
+b4        6
+b3s      14
+d4       14
+b4s      13
+d4s       4
+Name: 1, dtype: int64
+Best Prob: -82
+a1        8
+b1        1
+c1        4
+d1       10
+a2        1
+d         5
+b2        5
+c2        1
+d2        6
+c2s      10
+d2s      10
+Col10     7
+Col20    10
+Col30    13
+b3        9
+c3       10
+d3        2
+c3s       6
+d3s       6
+b4        8
+b3s      14
+d4       14
+b4s      13
+d4s       4
+Name: 1, dtype: int64
+Best Prob: -81
+a1        8
+b1        1
+c1        4
+d1       10
+a2        1
+d         5
+b2        5
+c2        7
+d2        2
+c2s       1
+d2s       1
+Col10     2
+Col20     1
+Col30     3
+b3        6
+c3       10
+d3       10
+c3s       6
+d3s       6
+b4        8
+b3s      14
+d4       11
+b4s      13
+d4s       4
+Name: 1, dtype: int64
+Best Prob: -80
+a1        8
+b1        1
+c1        4
+d1       10
+a2        1
+d         5
+b2        5
+c2        8
+d2        2
+c2s       5
+d2s       5
+Col10    10
+Col20     5
+Col30    15
+b3        6
+c3       10
+d3       10
+c3s       6
+d3s       6
+b4        8
+b3s      10
+d4        5
+b4s      13
+d4s       4
+Name: 1, dtype: int64
+Best Prob: -79
+a1        8
+b1        1
+c1        5
+d1        2
+a2        1
+d         5
+b2        5
+c2        8
+d2        2
+c2s       5
+d2s       5
+Col10    10
+Col20     5
+Col30    15
+b3        5
+c3       10
+d3       15
+c3s      10
+d3s      10
+b4        1
+b3s      10
+d4        6
+b4s       8
+d4s      11
+Name: 2, dtype: int64
+Best Prob: -78
+a1        8
+b1        4
+c1        4
+d1       10
+a2        1
+d         5
+b2        5
+c2        8
+d2        2
+c2s       5
+d2s       5
+Col10    10
+Col20     5
+Col30    15
+b3        6
+c3       10
+d3       10
+c3s       6
+d3s       6
+b4        8
+b3s       1
+d4       10
+b4s      13
+d4s       4
+Name: 9, dtype: int64
+Best Prob: -77
+a1        8
+b1        4
+c1        4
+d1       10
+a2        1
+d         5
+b2        5
+c2       10
+d2        2
+c2s       6
+d2s       6
+Col10    12
+Col20     6
+Col30    10
+b3        2
+c3       10
+d3       10
+c3s       6
+d3s       6
+b4        8
+b3s       1
+d4       10
+b4s      13
+d4s       4
+Name: 9, dtype: int64
+Best Prob: -76
+a1        8
+b1        4
+c1        5
+d1        2
+a2        1
+d         5
+b2        5
+c2       10
+d2        2
+c2s       6
+d2s       6
+Col10    12
+Col20     6
+Col30    10
+b3        2
+c3        1
+d3        5
+c3s      10
+d3s      10
+b4        9
+b3s       1
+d4        9
+b4s       5
+d4s      15
+Name: 10, dtype: int64
