@@ -21,7 +21,18 @@ for i in range(16):
                     point.append(1)
                 else:
                     point.append(0)
+            assert diff[i][j] == 16 or diff[i][j] == 4 or diff[i][j] == 2
+            if diff[i][j] == 16:
+                point.append(0)
+                point.append(0)
+            elif diff[i][j] == 4:
+                point.append(0)
+                point.append(1)
+            else:
+                point.append(1)
+                point.append(0)
             points.append(point)
+print(points)
 poly = Polyhedron(vertices = points)
 for l in poly.inequality_generator():
     print(l)
