@@ -1,7 +1,7 @@
 from gurobipy import *
 
 
-num_rounds = 7
+num_rounds = 3
 
 Piccolo = Model("Piccolo")
 
