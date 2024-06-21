@@ -1,4 +1,5 @@
 from gurobipy import *
+import sys
 
 M = [
     [0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
@@ -115,18 +116,23 @@ def process_sage_output():
 
 
 if __name__ == "__main__":
+    sys.stdout = open("output.txt", "w")
+
     coeff = process_sage_output()
 
-    num_rounds = 6
+    num_rounds = 3
     Piccolo = Model("Piccolo")
     state = {}
     beforeM = {}
     Sprobx = {}
     Sproby = {}
     afterM = {}
+    dummy = {}
     Fout = {}
     beforeRP = {}
     state[0] = Piccolo.addVars(64, vtype=GRB.BINARY, name="state0")
+    Piccolo.update()
+    Piccolo.addConstr(quicksum(state[0][i] for i in range(64)) >= 1)
     expr = LinExpr()
     for rd in range(num_rounds):
         beforeM[rd] = Piccolo.addVars(32, vtype=GRB.BINARY, name="beforeM" + str(rd))
@@ -136,7 +142,9 @@ if __name__ == "__main__":
         # Sprob means the probability of each S box
         # two bits to represent 3 kind of probability => 00 for 2^0; 01 for 2^{-2}; 10 for 2^{-3}
         afterM[rd] = Piccolo.addVars(32, vtype=GRB.BINARY, name="afterM" + str(rd))
+        dummy[rd] = Piccolo.addVars(32, vtype=GRB.INTEGER, name="dummy" + str(rd))
         # afterM means output of bits[0 to 15] and bits[32 to 47] after Mixcolumn
+        # dummy are dummy variables to deal with XOR
         Fout[rd] = Piccolo.addVars(32, vtype=GRB.BINARY, name="Fout" + str(rd))
         # Fout means output of bits[0 to 15] and bits[32 to 47] after the whole F function
         beforeRP[rd] = Piccolo.addVars(64, vtype=GRB.BINARY, name="beforeRP" + str(rd))
@@ -159,6 +167,7 @@ if __name__ == "__main__":
                     temp.add(eff[8] * Sprobx[rd][i])
                 if eff[9] != 0:
                     temp.add(eff[9] * Sproby[rd][i])
+                # print(temp, ">=", eff[10])
                 Piccolo.addConstr(temp >= eff[10])
         for i in range(4):
             for eff in coeff:
@@ -173,19 +182,34 @@ if __name__ == "__main__":
                     temp.add(eff[8] * Sprobx[rd][i + 4])
                 if eff[9] != 0:
                     temp.add(eff[9] * Sproby[rd][i + 4])
+                # print(temp, ">=", eff[10])
                 Piccolo.addConstr(temp >= eff[10])
         for i in range(16):
             temp = LinExpr()
             for j in range(16):
                 if M[i][j]:
                     temp.add(beforeM[rd][j])
-            Piccolo.addConstr(afterM[rd][i] == temp)
+            # print("afterM%d[%d] ==" % (rd, i), temp)
+            Piccolo.addGenConstrIndicator(
+                afterM[rd][i], True, temp == 2 * dummy[rd][i] + 1
+            )
+            Piccolo.addGenConstrIndicator(
+                afterM[rd][i], False, temp == 2 * dummy[rd][i]
+            )
         for i in range(16):
             temp = LinExpr()
             for j in range(16):
                 if M[i][j]:
                     temp.add(beforeM[rd][j + 16])
-            Piccolo.addConstr(afterM[rd][i + 16] == temp)
+            # print("afterM%d[%d] ==" % (rd, i + 16), temp)
+            Piccolo.addGenConstrIndicator(
+                afterM[rd][i + 16],
+                True,
+                temp == 2 * dummy[rd][i + 16] + 1,
+            )
+            Piccolo.addGenConstrIndicator(
+                afterM[rd][i + 16], False, temp == 2 * dummy[rd][i + 16]
+            )
         for i in range(4):
             for eff in coeff:
                 temp = LinExpr()
@@ -199,6 +223,7 @@ if __name__ == "__main__":
                     temp.add(eff[8] * Sprobx[rd][i + 8])
                 if eff[9] != 0:
                     temp.add(eff[9] * Sproby[rd][i + 8])
+                # print(temp, ">=", eff[10])
                 Piccolo.addConstr(temp >= eff[10])
         for i in range(4):
             for eff in coeff:
@@ -213,6 +238,7 @@ if __name__ == "__main__":
                     temp.add(eff[8] * Sprobx[rd][i + 12])
                 if eff[9] != 0:
                     temp.add(eff[9] * Sproby[rd][i + 12])
+                # print(temp, ">=", eff[10])
                 Piccolo.addConstr(temp >= eff[10])
         Piccolo.addConstrs(beforeRP[rd][i] == state[rd][i] for i in range(16))
         Piccolo.addConstrs(beforeRP[rd][i] == state[rd][i] for i in range(32, 48))
@@ -228,9 +254,14 @@ if __name__ == "__main__":
             expr.add(3 * Sprobx[rd][i])
 
     Piccolo.setObjective(expr, GRB.MINIMIZE)
-    Piccolo.addConstr(expr >= 1)
+    # Piccolo.addConstr(expr >= 1)
+    Piccolo.update()
     Piccolo.optimize()
+    print(Piccolo.Status)
+    # Piccolo.computeIIS()
     # for v in Piccolo.getVars():
     #     if v.VarName.find("Sprob") != -1:
     #         print(v.VarName, v.X)
-    # print("Obj: %g" % Piccolo.objVal)
+    for v in Piccolo.getVars():
+        print(v.VarName, v.X)
+    print("Obj: %g" % Piccolo.objVal)
