@@ -115,12 +115,52 @@ def process_sage_output():
     return coeff
 
 
+def Matsui_bound_constraints():
+    Best_prob = [0, 0, 10, 20, 31]
+    bound_forward = LinExpr()
+    bound_backward = LinExpr()
+    for rd in range(num_rounds - 1):
+        for i in range(16):
+            bound_forward.add(2 * Sproby[rd][i])
+            bound_forward.add(3 * Sprobx[rd][i])
+            bound_backward.add(2 * Sproby[num_rounds - 1 - rd][i])
+            bound_backward.add(3 * Sprobx[num_rounds - 1 - rd][i])
+        Piccolo.addConstr(bound_forward >= Best_prob[rd + 1])
+        Piccolo.addConstr(bound_backward >= Best_prob[rd + 1])
+
+
+def Wordwise_constraints():
+    with open("./log/wordwise-constraints.txt") as f:
+        for line in f.readlines():
+            if line.find("num_rounds") != -1:
+                pos = line.find(":")
+                nr = int(line[pos + 2 :])
+                assert nr == num_rounds
+            if line.find("state") != -1:
+                l = line.find("[")
+                r = line.find("]")
+                idx = int(line[l + 1 : r])
+                rd = int(line[l - 1 : l])
+                # print(rd, idx)
+                Piccolo.addConstrs(
+                    state[rd][i] == 0 for i in range(4 * idx, 4 * idx + 4)
+                )
+            if line.find("linear") != -1:
+                l = line.find("[")
+                r = line.find("]")
+                idx = int(line[l + 1 : r])
+                rd = int(line[l - 1 : l])
+                # print(rd, idx)
+                Piccolo.addConstrs(
+                    afterM[rd][i] == 0 for i in range(4 * idx, 4 * idx + 4)
+                )
+
+
 if __name__ == "__main__":
     # sys.stdout = open("./log/output.txt", "w")
 
+    num_rounds = 3
     coeff = process_sage_output()
-
-    num_rounds = 4
     Piccolo = Model("Piccolo")
     state = {}
     beforeM = {}
@@ -132,8 +172,11 @@ if __name__ == "__main__":
     beforeRP = {}
     state[0] = Piccolo.addVars(64, vtype=GRB.BINARY, name="state0")
     Piccolo.update()
+
     Piccolo.addConstr(quicksum(state[0][i] for i in range(64)) >= 1)
-    expr = LinExpr()
+    # input difference not all zeros
+    obj = LinExpr()
+    # objective function
     for rd in range(num_rounds):
         beforeM[rd] = Piccolo.addVars(32, vtype=GRB.BINARY, name="beforeM" + str(rd))
         # beforeM means output of bits[0 to 15] and bits[32 to 47] after S boxes
@@ -190,26 +233,14 @@ if __name__ == "__main__":
                 if M[i][j]:
                     temp.add(beforeM[rd][j])
             # print("afterM%d[%d] ==" % (rd, i), temp)
-            Piccolo.addGenConstrIndicator(
-                afterM[rd][i], True, temp == 2 * dummy[rd][i] + 1
-            )
-            Piccolo.addGenConstrIndicator(
-                afterM[rd][i], False, temp == 2 * dummy[rd][i]
-            )
+            Piccolo.addConstr(temp == 2 * dummy[rd][i] + afterM[rd][i])
         for i in range(16):
             temp = LinExpr()
             for j in range(16):
                 if M[i][j]:
                     temp.add(beforeM[rd][j + 16])
             # print("afterM%d[%d] ==" % (rd, i + 16), temp)
-            Piccolo.addGenConstrIndicator(
-                afterM[rd][i + 16],
-                True,
-                temp == 2 * dummy[rd][i + 16] + 1,
-            )
-            Piccolo.addGenConstrIndicator(
-                afterM[rd][i + 16], False, temp == 2 * dummy[rd][i + 16]
-            )
+            Piccolo.addConstr(temp == 2 * dummy[rd][i + 16] + afterM[rd][i + 16])
         for i in range(4):
             for eff in coeff:
                 temp = LinExpr()
@@ -250,12 +281,13 @@ if __name__ == "__main__":
         )
         Piccolo.addConstrs(state[rd + 1][i] == beforeRP[rd][RP[i]] for i in range(64))
         for i in range(16):
-            expr.add(2 * Sproby[rd][i])
-            expr.add(3 * Sprobx[rd][i])
+            obj.add(2 * Sproby[rd][i])
+            obj.add(3 * Sprobx[rd][i])
 
-    Piccolo.setObjective(expr, GRB.MINIMIZE)
-    # Piccolo.addConstr(expr >= 1)
-    Piccolo.update()
+    Matsui_bound_constraints()
+    Wordwise_constraints()
+
+    Piccolo.setObjective(obj, GRB.MINIMIZE)
     Piccolo.write("./log/model.lp")
     Piccolo.optimize()
     print(Piccolo.Status)
@@ -263,6 +295,7 @@ if __name__ == "__main__":
     # for v in Piccolo.getVars():
     #     if v.VarName.find("Sprob") != -1:
     #         print(v.VarName, v.X)
-    for v in Piccolo.getVars():
-        print(v.VarName, v.X)
-    print("Obj: %g" % Piccolo.objVal)
+    if Piccolo.Status == 2:
+        # for v in Piccolo.getVars():
+        #     print(v.VarName, v.X)
+        print("Maximum Trail Prob: 2^{-%g}" % Piccolo.objVal)
