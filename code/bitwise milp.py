@@ -90,7 +90,7 @@ RP = [
 
 def process_sage_output():
     coeff = []
-    with open("Convex hull of S box with prob.txt", "r") as f:
+    with open("./log/Convex hull of S box with prob after selected.txt", "r") as f:
         for line in f.readlines():
             lst = []
             line = line.strip("\n")
@@ -116,11 +116,11 @@ def process_sage_output():
 
 
 if __name__ == "__main__":
-    sys.stdout = open("output.txt", "w")
+    # sys.stdout = open("./log/output.txt", "w")
 
     coeff = process_sage_output()
 
-    num_rounds = 3
+    num_rounds = 4
     Piccolo = Model("Piccolo")
     state = {}
     beforeM = {}
@@ -256,6 +256,7 @@ if __name__ == "__main__":
     Piccolo.setObjective(expr, GRB.MINIMIZE)
     # Piccolo.addConstr(expr >= 1)
     Piccolo.update()
+    Piccolo.write("./log/model.lp")
     Piccolo.optimize()
     print(Piccolo.Status)
     # Piccolo.computeIIS()

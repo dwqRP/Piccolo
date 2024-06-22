@@ -1,4 +1,4 @@
-from gurobipy import *
+import numpy as np
 
 M = [
     [0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
@@ -22,7 +22,7 @@ M = [
 
 def process_sage_output():
     coeff = []
-    with open("Convex hull of S box with prob.txt", "r") as f:
+    with open("./log/Convex hull of S box with prob.txt", "r") as f:
         for line in f.readlines():
             lst = []
             line = line.strip("\n")
@@ -48,8 +48,33 @@ def process_sage_output():
 
 if __name__ == "__main__":
     coeff = process_sage_output()
-    print(len(coeff))
-    for eff in coeff:
-        if eff[9] < eff[10]:
-            print("OK")
-            break
+    # print(coeff)
+
+    diff = np.zeros([16, 16], int)
+    # print(diff)
+    for i in range(1 << 10):
+        flag = 1
+        for eff in coeff:
+            res = 0
+            for j in range(10):
+                if i & (1 << (9 - j)):
+                    res += eff[j]
+            if res < eff[10]:
+                flag = 0
+                break
+        if flag:
+            # print(i)
+            tmp = i
+            k = tmp % 4
+            tmp >>= 2
+            y = tmp % (1 << 4)
+            tmp >>= 4
+            x = tmp
+            assert k == 0 or k == 1 or k == 2
+            if k == 0:
+                diff[x][y] = 16
+            elif k == 1:
+                diff[x][y] = 4
+            else:
+                diff[x][y] = 2
+    print(diff)

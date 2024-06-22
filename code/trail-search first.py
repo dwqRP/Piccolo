@@ -139,4 +139,4 @@ if __name__ == "__main__":
     print(lst)
     head = ["a1", "b1", "c1", "d1", "a2"]
     out = pd.DataFrame(columns=head, data=lst)
-    out.to_csv("out.csv", index=False)
+    out.to_csv("./log/out.csv", index=False)

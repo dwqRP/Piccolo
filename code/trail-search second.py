@@ -70,59 +70,6 @@ def dot(X, Y):
     return res
 
 
-def check1(c3, d3, c1, d1):
-    res = []
-    for c3s in range(16):
-        if diff[c3][c3s] == 0:
-            continue
-        for d3s in range(16):
-            if diff[d3][d3s] == 0:
-                continue
-            Col = dot(mtx, np.asarray([0, 0, c3s, d3s]).reshape(4, 1))
-            if Col[0][0] == 0 and diff[Col[2][0]][c1] != 0 and diff[Col[3][0]][d1] != 0:
-                for i in range(16):
-                    if diff[Col[1][0]][i] != 0:
-                        if res.count(i) == 0:
-                            res.append(i)
-    return res
-
-
-def check2(x, a, b, c):
-    res = []
-    for xs in range(16):
-        if diff[x][xs] == 0:
-            continue
-        Col = dot(mtx, np.asarray([0, xs, 0, 0]).reshape(4, 1))
-        if (
-            diff[Col[0][0]][a] != 0
-            and diff[Col[1][0]][b] != 0
-            and diff[Col[2][0]][c] != 0
-        ):
-            for i in range(16):
-                if diff[Col[3][0]][i] != 0:
-                    if res.count(i) == 0:
-                        res.append(i)
-    return res
-
-
-def calc(p, q, x, y, z):
-    for ps in range(16):
-        if diff[p][ps] == 0:
-            continue
-        for qs in range(16):
-            if diff[q][qs] == 0:
-                continue
-            Col = dot(mtx, np.asarray([0, ps, 0, qs]).reshape(4, 1))
-            if (
-                Col[0][0] == 0
-                and diff[Col[1][0]][x] != 0
-                and diff[Col[2][0]][y] != 0
-                and diff[Col[3][0]][z] != 0
-            ):
-                return True
-    return False
-
-
 def dfs(var, din, prob, para):
     # print(var)
     # print(din)
@@ -227,62 +174,12 @@ if __name__ == "__main__":
     init_diff()
     init_inv()
     # print(dot(mtx, inv))
-    input = pd.read_csv("out.csv")
+    input = pd.read_csv("./log/out.csv")
     for i in range(64):
         para = input.loc[i]
-        # a1, b1, c1, d1, a2 = (
-        #     para["a1"],
-        #     para["b1"],
-        #     para["c1"],
-        #     para["d1"],
-        #     para["a2"],
-        # )
-        # print(a1, b1, c1, d1, a2)
         # d = b2 = 5
         # 2 2 6 4
         para["d"] = 5
         para["b2"] = 5
         # print(para)
         dfs("c2", 6, -70, para)
-        # for c2 in range(16):
-        #     if diff[6][c2] == 0:
-        #         continue
-        #     if diff[6][c2] == 2:
-        #         prob -= 1
-        #     for d2 in range(16):
-        #         if diff[4][d2] == 0:
-        #             continue
-        #         if diff[4][d2] == 2:
-        #             prob -= 1
-        #         for c2s in range(16):
-        #             if diff[c2][c2s] == 0:
-        #                 continue
-        #             if diff[c2][c2s] == 2:
-        #                 prob -= 1
-        #             for d2s in range(16):
-        #                 if diff[d2][d2s] == 0:
-        #                     continue
-        #                 if diff[d2][d2s] == 2:
-        #                     prob -= 1
-        #                 Col1 = dot(mtx, np.asarray([0, 0, c2s, d2s]).reshape(4, 1))
-        #                 if Col1[0][0] != 0:
-        #                     continue
-        #                 for b3 in range(16):
-        #                     if diff[Col1[1][0]][b3] == 0:
-        #                         continue
-        #                     if diff[Col1[1][0]][b3] == 2:
-        #                         prob -= 1
-        #                     for c3 in range(16):
-        #                         if diff[Col1[2][0]][c3] == 0:
-        #                             continue
-        #                         for d3 in range(16):
-        #                             if diff[Col1[3][0]][d3] == 0:
-        #                                 continue
-        #                             b4_lst = check1(c3, d3, c1, d1)
-        #                             d4_lst = check2(b3, a1 ^ a2, b1 ^ b2, c2)
-        #                             if b4_lst == [] or d4_lst == []:
-        #                                 continue
-        #                             for b4 in b4_lst:
-        #                                 for d4 in d4_lst:
-        #                                     if calc(b4, d2 ^ d4, b3, c3, d3) == True:
-        #                                         print("1111")
