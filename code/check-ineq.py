@@ -91,6 +91,7 @@ if __name__ == "__main__":
                 diff[x][y] = 2
     assert (ddt == diff).all() == True
     print("The sage output is right.")
-    state = 0xA5
-    state = (state << 2) | (0b01)
-    print(check(state))
+    # state = 0xA5
+    # state = (state << 2) | (0b01)
+    # print(check(state))
+    print(diff[6][4])

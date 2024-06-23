@@ -154,12 +154,34 @@ def Wordwise_constraints():
                 Piccolo.addConstrs(
                     afterM[rd][i] == 0 for i in range(4 * idx, 4 * idx + 4)
                 )
+                
 
+def Debug():
+    Piccolo.addConstr(state[0][16] == 1)
+    Piccolo.addConstr(state[0][17] == 0)
+    Piccolo.addConstr(state[0][18] == 0)
+    Piccolo.addConstr(state[0][19] == 0)
+    
+    Piccolo.addConstr(state[0][56] == 0)
+    Piccolo.addConstr(state[0][57] == 1)
+    Piccolo.addConstr(state[0][58] == 0)
+    Piccolo.addConstr(state[0][59] == 0)
+    
+    Piccolo.addConstr(state[0][60] == 0)
+    Piccolo.addConstr(state[0][61] == 0)
+    Piccolo.addConstr(state[0][62] == 1)
+    Piccolo.addConstr(state[0][63] == 0)
+    
+    Piccolo.addConstr(beforeM[2][28] == 0)
+    Piccolo.addConstr(beforeM[2][29] == 0)
+    Piccolo.addConstr(beforeM[2][30] == 1)
+    Piccolo.addConstr(beforeM[2][31] == 0)
+    
 
 if __name__ == "__main__":
     # sys.stdout = open("./log/output.txt", "w")
 
-    num_rounds = 3
+    num_rounds = 4
     coeff = process_sage_output()
     Piccolo = Model("Piccolo")
     state = {}
@@ -284,8 +306,10 @@ if __name__ == "__main__":
             obj.add(2 * Sproby[rd][i])
             obj.add(3 * Sprobx[rd][i])
 
-    Matsui_bound_constraints()
+    # Matsui_bound_constraints()
     Wordwise_constraints()
+
+    # Debug()
 
     Piccolo.setObjective(obj, GRB.MINIMIZE)
     Piccolo.write("./log/model.lp")
@@ -296,6 +320,6 @@ if __name__ == "__main__":
     #     if v.VarName.find("Sprob") != -1:
     #         print(v.VarName, v.X)
     if Piccolo.Status == 2:
-        # for v in Piccolo.getVars():
-        #     print(v.VarName, v.X)
+        for v in Piccolo.getVars():
+            print(v.VarName, v.X)
         print("Maximum Trail Prob: 2^{-%g}" % Piccolo.objVal)

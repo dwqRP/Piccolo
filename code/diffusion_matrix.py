@@ -12,7 +12,9 @@ def mul(x, y):
 
 if __name__ == "__main__":
     mn = 8
-    for o in range(1, 1 << 16):
+    # for o in range(1, 1 << 16):
+    for o in range(10, 11):
+        print(hex(o))
         t = []
         tmp = o
         for i in range(4):
@@ -24,7 +26,7 @@ if __name__ == "__main__":
         z.append(mul(2, t[1]) ^ mul(3, t[2]) ^ t[0] ^ t[3])
         z.append(mul(2, t[2]) ^ mul(3, t[3]) ^ t[0] ^ t[1])
         z.append(mul(2, t[3]) ^ mul(3, t[0]) ^ t[1] ^ t[2])
-
+        print(z)
         sum = 0
         for i in range(4):
             if t[i]:

@@ -2,7 +2,7 @@ from gurobipy import *
 import sys
 
 if __name__ == "__main__":
-    num_rounds = 3
+    num_rounds = 4
     Piccolo = Model("Piccolo")
     state = {}
     linear = {}
