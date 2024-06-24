@@ -90,7 +90,7 @@ RP = [
 
 def process_sage_output():
     coeff = []
-    with open("./log/Convex hull of S box with prob after selected.txt", "r") as f:
+    with open("ineqs.txt", "r") as f:
         for line in f.readlines():
             lst = []
             line = line.strip("\n")
@@ -115,8 +115,181 @@ def process_sage_output():
     return coeff
 
 
-def Matsui_bound_constraints():
-    Best_prob = [0, 0, 10, 20, 31]
+def Bitwise_solver(num_rounds, best_prob, min_sbox=1):
+    assert num_rounds >= 1
+
+    state[0] = Piccolo.addVars(64, vtype=GRB.BINARY, name="state0")
+    # state means the difference of internal states at the beginning of each round
+    Piccolo.update()
+    Piccolo.addConstr(quicksum(state[0][i] for i in range(64)) >= 1)
+    # input difference not all zeros
+
+    obj = LinExpr()
+    # objective function
+
+    for rd in range(num_rounds):
+        beforeM[rd] = Piccolo.addVars(32, vtype=GRB.BINARY, name="beforeM" + str(rd))
+        # beforeM means output of bits[0 to 15] and bits[32 to 47] after S boxes
+        Sprobx[rd] = Piccolo.addVars(16, vtype=GRB.BINARY, name="Sprobx" + str(rd))
+        Sproby[rd] = Piccolo.addVars(16, vtype=GRB.BINARY, name="Sproby" + str(rd))
+        # Sprob means the probability of each S box
+        # two bits to represent 3 kind of probability => 00 for 2^0; 01 for 2^{-2}; 10 for 2^{-3}
+        afterM[rd] = Piccolo.addVars(32, vtype=GRB.BINARY, name="afterM" + str(rd))
+        dummy[rd] = Piccolo.addVars(32, vtype=GRB.INTEGER, name="dummy" + str(rd))
+        # afterM means output of bits[0 to 15] and bits[32 to 47] after Mixcolumn
+        # dummy are dummy variables to deal with XOR
+        Fout[rd] = Piccolo.addVars(32, vtype=GRB.BINARY, name="Fout" + str(rd))
+        # Fout means output of bits[0 to 15] and bits[32 to 47] after the whole F function
+        beforeRP[rd] = Piccolo.addVars(64, vtype=GRB.BINARY, name="beforeRP" + str(rd))
+        # beforeRP means input of bits[0 to 63] before the round permutation
+        state[rd + 1] = Piccolo.addVars(
+            64, vtype=GRB.BINARY, name="state" + str(rd + 1)
+        )
+        Piccolo.update()
+
+        # Modeling S-box[0 to 7]
+        for i in range(4):
+            for eff in coeff:
+                temp = LinExpr()
+                for j in range(4):
+                    if eff[j] != 0:
+                        temp.add(eff[j] * state[rd][4 * i + j])
+                for j in range(4):
+                    if eff[4 + j] != 0:
+                        temp.add(eff[4 + j] * beforeM[rd][4 * i + j])
+                if eff[8] != 0:
+                    temp.add(eff[8] * Sprobx[rd][i])
+                if eff[9] != 0:
+                    temp.add(eff[9] * Sproby[rd][i])
+                Piccolo.addConstr(temp >= eff[10])
+        for i in range(4):
+            for eff in coeff:
+                temp = LinExpr()
+                for j in range(4):
+                    if eff[j] != 0:
+                        temp.add(eff[j] * state[rd][32 + 4 * i + j])
+                for j in range(4):
+                    if eff[4 + j] != 0:
+                        temp.add(eff[4 + j] * beforeM[rd][16 + 4 * i + j])
+                if eff[8] != 0:
+                    temp.add(eff[8] * Sprobx[rd][i + 4])
+                if eff[9] != 0:
+                    temp.add(eff[9] * Sproby[rd][i + 4])
+                Piccolo.addConstr(temp >= eff[10])
+
+        # Modeling MixColumn (Sum of bitwise XOR)
+        for i in range(16):
+            temp = LinExpr()
+            for j in range(16):
+                if M[i][j]:
+                    temp.add(beforeM[rd][j])
+            Piccolo.addConstr(temp == 2 * dummy[rd][i] + afterM[rd][i])
+        for i in range(16):
+            temp = LinExpr()
+            for j in range(16):
+                if M[i][j]:
+                    temp.add(beforeM[rd][j + 16])
+            Piccolo.addConstr(temp == 2 * dummy[rd][i + 16] + afterM[rd][i + 16])
+
+        # Modeling S-box[8 to 15]
+        for i in range(4):
+            for eff in coeff:
+                temp = LinExpr()
+                for j in range(4):
+                    if eff[j] != 0:
+                        temp.add(eff[j] * afterM[rd][4 * i + j])
+                for j in range(4):
+                    if eff[4 + j] != 0:
+                        temp.add(eff[4 + j] * Fout[rd][4 * i + j])
+                if eff[8] != 0:
+                    temp.add(eff[8] * Sprobx[rd][i + 8])
+                if eff[9] != 0:
+                    temp.add(eff[9] * Sproby[rd][i + 8])
+                Piccolo.addConstr(temp >= eff[10])
+        for i in range(4):
+            for eff in coeff:
+                temp = LinExpr()
+                for j in range(4):
+                    if eff[j] != 0:
+                        temp.add(eff[j] * afterM[rd][16 + 4 * i + j])
+                for j in range(4):
+                    if eff[4 + j] != 0:
+                        temp.add(eff[4 + j] * Fout[rd][16 + 4 * i + j])
+                if eff[8] != 0:
+                    temp.add(eff[8] * Sprobx[rd][i + 12])
+                if eff[9] != 0:
+                    temp.add(eff[9] * Sproby[rd][i + 12])
+                Piccolo.addConstr(temp >= eff[10])
+
+        Piccolo.addConstrs(beforeRP[rd][i] == state[rd][i] for i in range(16))
+        Piccolo.addConstrs(beforeRP[rd][i] == state[rd][i] for i in range(32, 48))
+
+        # Modeling XOR
+        Piccolo.addConstrs(
+            beforeRP[rd][i] + state[rd][i] + Fout[rd][i - 16] <= 2
+            for i in range(16, 32)
+        )
+        Piccolo.addConstrs(
+            beforeRP[rd][i] + state[rd][i] >= Fout[rd][i - 16] for i in range(16, 32)
+        )
+        Piccolo.addConstrs(
+            beforeRP[rd][i] + Fout[rd][i - 16] >= state[rd][i] for i in range(16, 32)
+        )
+        Piccolo.addConstrs(
+            state[rd][i] + Fout[rd][i - 16] >= beforeRP[rd][i] for i in range(16, 32)
+        )
+        Piccolo.addConstrs(
+            beforeRP[rd][i] + state[rd][i] + Fout[rd][i - 32] <= 2
+            for i in range(48, 64)
+        )
+        Piccolo.addConstrs(
+            beforeRP[rd][i] + state[rd][i] >= Fout[rd][i - 32] for i in range(48, 64)
+        )
+        Piccolo.addConstrs(
+            beforeRP[rd][i] + Fout[rd][i - 32] >= state[rd][i] for i in range(48, 64)
+        )
+        Piccolo.addConstrs(
+            state[rd][i] + Fout[rd][i - 32] >= beforeRP[rd][i] for i in range(48, 64)
+        )
+
+        # Modeling round permutation
+        Piccolo.addConstrs(state[rd + 1][i] == beforeRP[rd][RP[i]] for i in range(64))
+
+        # Calc probability
+        for i in range(16):
+            obj.add(2 * Sproby[rd][i])
+            obj.add(3 * Sprobx[rd][i])
+
+    # Lower bound of probability
+    Piccolo.addConstr(obj >= 2 * min_sbox)
+
+    Matsui_bound_constraints(num_rounds)
+    Wordwise_constraints()
+
+    Piccolo.setObjective(obj, GRB.MINIMIZE)
+    Piccolo.setParam("OutputFlag", 0)
+    Piccolo.write("model.lp")
+    Piccolo.optimize()
+    # print("Model Status:", Piccolo.Status)
+    # Piccolo.computeIIS()
+    if Piccolo.Status == 2:
+        ans = Piccolo.ObjVal
+        if Piccolo.ObjVal < best_prob:
+            Output_trail(num_rounds)
+        Piccolo.remove(Piccolo.getVars())
+        Piccolo.remove(Piccolo.getConstrs())
+        # for v in Piccolo.getVars():
+        #     print(v.VarName, v.X)
+        # print("Maximum Trail Prob: 2^{-%g}" % Piccolo.ObjVal)
+        return ans
+    else:
+        Piccolo.remove(Piccolo.getVars())
+        Piccolo.remove(Piccolo.getConstrs())
+        return -1
+
+
+def Matsui_bound_constraints(num_rounds):
+    Best_prob = [0, 0, 10, 20, 31, 41, 64]
     bound_forward = LinExpr()
     bound_backward = LinExpr()
     for rd in range(num_rounds - 1):
@@ -130,12 +303,12 @@ def Matsui_bound_constraints():
 
 
 def Wordwise_constraints():
-    with open("./log/wordwise-constraints.txt") as f:
+    with open("wordwise_constraints.txt") as f:
         for line in f.readlines():
-            if line.find("num_rounds") != -1:
-                pos = line.find(":")
-                nr = int(line[pos + 2 :])
-                assert nr == num_rounds
+            # if line.find("num_rounds") != -1:
+            #     pos = line.find(":")
+            #     nr = int(line[pos + 2 :])
+            #     assert nr == num_rounds
             if line.find("state") != -1:
                 l = line.find("[")
                 r = line.find("]")
@@ -154,172 +327,42 @@ def Wordwise_constraints():
                 Piccolo.addConstrs(
                     afterM[rd][i] == 0 for i in range(4 * idx, 4 * idx + 4)
                 )
-                
 
-def Debug():
-    Piccolo.addConstr(state[0][16] == 1)
-    Piccolo.addConstr(state[0][17] == 0)
-    Piccolo.addConstr(state[0][18] == 0)
-    Piccolo.addConstr(state[0][19] == 0)
-    
-    Piccolo.addConstr(state[0][56] == 0)
-    Piccolo.addConstr(state[0][57] == 1)
-    Piccolo.addConstr(state[0][58] == 0)
-    Piccolo.addConstr(state[0][59] == 0)
-    
-    Piccolo.addConstr(state[0][60] == 0)
-    Piccolo.addConstr(state[0][61] == 0)
-    Piccolo.addConstr(state[0][62] == 1)
-    Piccolo.addConstr(state[0][63] == 0)
-    
-    Piccolo.addConstr(beforeM[2][28] == 0)
-    Piccolo.addConstr(beforeM[2][29] == 0)
-    Piccolo.addConstr(beforeM[2][30] == 1)
-    Piccolo.addConstr(beforeM[2][31] == 0)
-    
+
+def Output_trail(num_rounds):
+    print("Differential characteristic found: Probability = 2^{-%d}" % Piccolo.ObjVal)
+    rd = i = j = 0
+    sti = ""
+    stj = ""
+    for v in Piccolo.getVars():
+        if v.VarName.find("state") != -1:
+            j += 1
+            stj += str(int(v.X))
+            if j == 16:
+                j = 0
+                i += 1
+                sti += "{:#06X}".format(int(stj, 2))[2:] + " "
+                stj = ""
+                if i == 4:
+                    i = 0
+                    print("Round " + str(rd) + ": " + sti)
+                    sti = ""
+                    rd += 1
+
+
+coeff = process_sage_output()
+Piccolo = Model("Piccolo")
+state = {}
+beforeM = {}
+Sprobx = {}
+Sproby = {}
+afterM = {}
+dummy = {}
+Fout = {}
+beforeRP = {}
+
 
 if __name__ == "__main__":
     # sys.stdout = open("./log/output.txt", "w")
-
-    num_rounds = 4
-    coeff = process_sage_output()
-    Piccolo = Model("Piccolo")
-    state = {}
-    beforeM = {}
-    Sprobx = {}
-    Sproby = {}
-    afterM = {}
-    dummy = {}
-    Fout = {}
-    beforeRP = {}
-    state[0] = Piccolo.addVars(64, vtype=GRB.BINARY, name="state0")
-    Piccolo.update()
-
-    Piccolo.addConstr(quicksum(state[0][i] for i in range(64)) >= 1)
-    # input difference not all zeros
-    obj = LinExpr()
-    # objective function
-    for rd in range(num_rounds):
-        beforeM[rd] = Piccolo.addVars(32, vtype=GRB.BINARY, name="beforeM" + str(rd))
-        # beforeM means output of bits[0 to 15] and bits[32 to 47] after S boxes
-        Sprobx[rd] = Piccolo.addVars(16, vtype=GRB.BINARY, name="Sprobx" + str(rd))
-        Sproby[rd] = Piccolo.addVars(16, vtype=GRB.BINARY, name="Sproby" + str(rd))
-        # Sprob means the probability of each S box
-        # two bits to represent 3 kind of probability => 00 for 2^0; 01 for 2^{-2}; 10 for 2^{-3}
-        afterM[rd] = Piccolo.addVars(32, vtype=GRB.BINARY, name="afterM" + str(rd))
-        dummy[rd] = Piccolo.addVars(32, vtype=GRB.INTEGER, name="dummy" + str(rd))
-        # afterM means output of bits[0 to 15] and bits[32 to 47] after Mixcolumn
-        # dummy are dummy variables to deal with XOR
-        Fout[rd] = Piccolo.addVars(32, vtype=GRB.BINARY, name="Fout" + str(rd))
-        # Fout means output of bits[0 to 15] and bits[32 to 47] after the whole F function
-        beforeRP[rd] = Piccolo.addVars(64, vtype=GRB.BINARY, name="beforeRP" + str(rd))
-        # beforeRP means input of bits[0 to 63] before round permutation
-        state[rd + 1] = Piccolo.addVars(
-            64, vtype=GRB.BINARY, name="state" + str(rd + 1)
-        )
-        # state means the internal states at the beginning of each round
-        Piccolo.update()
-        for i in range(4):
-            for eff in coeff:
-                temp = LinExpr()
-                for j in range(4):
-                    if eff[j] != 0:
-                        temp.add(eff[j] * state[rd][4 * i + j])
-                for j in range(4):
-                    if eff[4 + j] != 0:
-                        temp.add(eff[4 + j] * beforeM[rd][4 * i + j])
-                if eff[8] != 0:
-                    temp.add(eff[8] * Sprobx[rd][i])
-                if eff[9] != 0:
-                    temp.add(eff[9] * Sproby[rd][i])
-                # print(temp, ">=", eff[10])
-                Piccolo.addConstr(temp >= eff[10])
-        for i in range(4):
-            for eff in coeff:
-                temp = LinExpr()
-                for j in range(4):
-                    if eff[j] != 0:
-                        temp.add(eff[j] * state[rd][32 + 4 * i + j])
-                for j in range(4):
-                    if eff[4 + j] != 0:
-                        temp.add(eff[4 + j] * beforeM[rd][16 + 4 * i + j])
-                if eff[8] != 0:
-                    temp.add(eff[8] * Sprobx[rd][i + 4])
-                if eff[9] != 0:
-                    temp.add(eff[9] * Sproby[rd][i + 4])
-                # print(temp, ">=", eff[10])
-                Piccolo.addConstr(temp >= eff[10])
-        for i in range(16):
-            temp = LinExpr()
-            for j in range(16):
-                if M[i][j]:
-                    temp.add(beforeM[rd][j])
-            # print("afterM%d[%d] ==" % (rd, i), temp)
-            Piccolo.addConstr(temp == 2 * dummy[rd][i] + afterM[rd][i])
-        for i in range(16):
-            temp = LinExpr()
-            for j in range(16):
-                if M[i][j]:
-                    temp.add(beforeM[rd][j + 16])
-            # print("afterM%d[%d] ==" % (rd, i + 16), temp)
-            Piccolo.addConstr(temp == 2 * dummy[rd][i + 16] + afterM[rd][i + 16])
-        for i in range(4):
-            for eff in coeff:
-                temp = LinExpr()
-                for j in range(4):
-                    if eff[j] != 0:
-                        temp.add(eff[j] * afterM[rd][4 * i + j])
-                for j in range(4):
-                    if eff[4 + j] != 0:
-                        temp.add(eff[4 + j] * Fout[rd][4 * i + j])
-                if eff[8] != 0:
-                    temp.add(eff[8] * Sprobx[rd][i + 8])
-                if eff[9] != 0:
-                    temp.add(eff[9] * Sproby[rd][i + 8])
-                # print(temp, ">=", eff[10])
-                Piccolo.addConstr(temp >= eff[10])
-        for i in range(4):
-            for eff in coeff:
-                temp = LinExpr()
-                for j in range(4):
-                    if eff[j] != 0:
-                        temp.add(eff[j] * afterM[rd][16 + 4 * i + j])
-                for j in range(4):
-                    if eff[4 + j] != 0:
-                        temp.add(eff[4 + j] * Fout[rd][16 + 4 * i + j])
-                if eff[8] != 0:
-                    temp.add(eff[8] * Sprobx[rd][i + 12])
-                if eff[9] != 0:
-                    temp.add(eff[9] * Sproby[rd][i + 12])
-                # print(temp, ">=", eff[10])
-                Piccolo.addConstr(temp >= eff[10])
-        Piccolo.addConstrs(beforeRP[rd][i] == state[rd][i] for i in range(16))
-        Piccolo.addConstrs(beforeRP[rd][i] == state[rd][i] for i in range(32, 48))
-        Piccolo.addConstrs(
-            beforeRP[rd][i] == state[rd][i] + Fout[rd][i - 16] for i in range(16, 32)
-        )
-        Piccolo.addConstrs(
-            beforeRP[rd][i] == state[rd][i] + Fout[rd][i - 32] for i in range(48, 64)
-        )
-        Piccolo.addConstrs(state[rd + 1][i] == beforeRP[rd][RP[i]] for i in range(64))
-        for i in range(16):
-            obj.add(2 * Sproby[rd][i])
-            obj.add(3 * Sprobx[rd][i])
-
-    # Matsui_bound_constraints()
-    Wordwise_constraints()
-
-    # Debug()
-
-    Piccolo.setObjective(obj, GRB.MINIMIZE)
-    Piccolo.write("./log/model.lp")
-    Piccolo.optimize()
-    print(Piccolo.Status)
-    # Piccolo.computeIIS()
-    # for v in Piccolo.getVars():
-    #     if v.VarName.find("Sprob") != -1:
-    #         print(v.VarName, v.X)
-    if Piccolo.Status == 2:
-        for v in Piccolo.getVars():
-            print(v.VarName, v.X)
-        print("Maximum Trail Prob: 2^{-%g}" % Piccolo.objVal)
+    Bitwise_solver(4, 1000)
+    # When only the bitwise milp is running, specify the num_rounds

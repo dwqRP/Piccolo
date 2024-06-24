@@ -1,8 +1,11 @@
 from gurobipy import *
+from Bitwise_MILP import *
+import time
 import sys
 
 if __name__ == "__main__":
-    num_rounds = 4
+    start_time = last_time = time.time()
+    num_rounds = 7
     Piccolo = Model("Piccolo")
     state = {}
     linear = {}
@@ -69,19 +72,44 @@ if __name__ == "__main__":
             obj.add(linear[rd][i])
             obj.add(linear[rd][i + 4])
 
-    Piccolo.setObjective(obj, GRB.MINIMIZE)
     Piccolo.addConstr(obj >= 1)
-    Piccolo.setParam("OutputFlag", 0)
+    Piccolo.setObjective(obj, GRB.MINIMIZE)
+    # Piccolo.setParam("OutputFlag", 0)
+    Piccolo.Params.PoolSearchMode = 2
+    Piccolo.Params.PoolSolutions = 20000
+    Piccolo.Params.PoolGap = 0.0
     Piccolo.optimize()
+    print("Model Status:", Piccolo.Status)
+    if Piccolo.Status == 2:
+        best_prob = 1000
+        print(Piccolo.SolCount)
+        print("Minimum S-boxes: %g" % Piccolo.ObjVal)
 
-    sys.stdout = open("./log/wordwise-constraints.txt", "w")
-    print("num_rounds:", num_rounds)
-    for v in Piccolo.getVars():
-        if v.X == 0:
-            if v.VarName.find("state") != -1:
-                print(v.VarName)
-            if v.VarName.find("linear") != -1:
-                print(v.VarName)
+        for k in range(Piccolo.SolCount):
+            Piccolo.Params.SolutionNumber = k
+            temp_time = time.time()
+            if temp_time - last_time > 5:
+                last_time = temp_time
+                print(
+                    "Solved {:.2f}%    Time: {}s".format(
+                        100 * k / Piccolo.SolCount, round(temp_time - start_time)
+                    )
+                )
+            sys.stdout = open("wordwise_constraints.txt", "w")
+            for v in Piccolo.getVars():
+                if v.Xn == 0:
+                    if v.VarName.find("state") != -1:
+                        print(v.VarName)
+                    if v.VarName.find("linear") != -1:
+                        print(v.VarName)
+                # print(v.VarName, v.Xn)
+            sys.stdout = sys.__stdout__
+            temp_prob = Bitwise_solver(num_rounds, best_prob, Piccolo.ObjVal)
+            # print(temp_prob)
+            if temp_prob == -1:
+                continue
+            if temp_prob < best_prob:
+                best_prob = temp_prob
 
-    sys.stdout = sys.__stdout__
-    print("Minimum S-boxes: %g" % Piccolo.objVal)
+        sys.stdout = sys.__stdout__
+        print("Maximum Probability:", best_prob)
