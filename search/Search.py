@@ -5,7 +5,7 @@ import sys
 
 if __name__ == "__main__":
     start_time = last_time = time.time()
-    num_rounds = 7
+    num_rounds = 6
     Piccolo = Model("Piccolo")
     state = {}
     linear = {}
@@ -97,11 +97,10 @@ if __name__ == "__main__":
                 )
             sys.stdout = open("wordwise_constraints.txt", "w")
             for v in Piccolo.getVars():
-                if v.Xn == 0:
-                    if v.VarName.find("state") != -1:
-                        print(v.VarName)
-                    if v.VarName.find("linear") != -1:
-                        print(v.VarName)
+                if v.VarName.find("state") != -1:
+                    print(v.VarName, "=", v.Xn)
+                if v.VarName.find("linear") != -1:
+                    print(v.VarName, "=", v.Xn)
                 # print(v.VarName, v.Xn)
             sys.stdout = sys.__stdout__
             temp_prob = Bitwise_solver(num_rounds, best_prob, Piccolo.ObjVal)

@@ -309,24 +309,33 @@ def Wordwise_constraints():
             #     pos = line.find(":")
             #     nr = int(line[pos + 2 :])
             #     assert nr == num_rounds
+            l = line.find("[")
+            r = line.find("]")
+            pos = line.find("=")
+            idx = int(line[l + 1 : r])
+            rd = int(line[l - 1 : l])
+            val = float(line[pos + 2 : -1])
+            assert abs(1 - val) < 1e-10 or abs(val) < 1e-10
+            # print(rd, idx, val)
             if line.find("state") != -1:
-                l = line.find("[")
-                r = line.find("]")
-                idx = int(line[l + 1 : r])
-                rd = int(line[l - 1 : l])
-                # print(rd, idx)
-                Piccolo.addConstrs(
-                    state[rd][i] == 0 for i in range(4 * idx, 4 * idx + 4)
-                )
+                if abs(val) < 1e-10:
+                    Piccolo.addConstrs(
+                        state[rd][i] == 0 for i in range(4 * idx, 4 * idx + 4)
+                    )
+                else:
+                    Piccolo.addConstr(
+                        quicksum(state[rd][i] for i in range(4 * idx, 4 * idx + 4)) >= 1
+                    )
             if line.find("linear") != -1:
-                l = line.find("[")
-                r = line.find("]")
-                idx = int(line[l + 1 : r])
-                rd = int(line[l - 1 : l])
-                # print(rd, idx)
-                Piccolo.addConstrs(
-                    afterM[rd][i] == 0 for i in range(4 * idx, 4 * idx + 4)
-                )
+                if abs(val) < 1e-10:
+                    Piccolo.addConstrs(
+                        afterM[rd][i] == 0 for i in range(4 * idx, 4 * idx + 4)
+                    )
+                else:
+                    Piccolo.addConstr(
+                        quicksum(afterM[rd][i] for i in range(4 * idx, 4 * idx + 4))
+                        >= 1
+                    )
 
 
 def Output_trail(num_rounds):
@@ -364,5 +373,5 @@ beforeRP = {}
 
 if __name__ == "__main__":
     # sys.stdout = open("./log/output.txt", "w")
-    Bitwise_solver(4, 1000)
+    Bitwise_solver(6, 1000, 30)
     # When only the bitwise milp is running, specify the num_rounds

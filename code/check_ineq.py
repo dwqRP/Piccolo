@@ -94,4 +94,30 @@ if __name__ == "__main__":
     # state = 0xA5
     # state = (state << 2) | (0b01)
     # print(check(state))
-    print(diff[6][4])
+    # print(diff[6][4])
+    print(diff)
+    tran = []
+    for i in range(16):
+        tran.append([])
+        for j in range(16):
+            if diff[i][j] > 0:
+                tran[i].append(j)
+    print(tran)
+    for i in range(16):
+        st = ""
+        one = [0] * 4
+        zero = [0] * 4
+        for j in tran[i]:
+            for k in range(4):
+                if j & (1 << k):
+                    one[3 - k] = 1
+                else:
+                    zero[3 - k] = 1
+        for o in range(4):
+            if zero[o] and one[o]:
+                st += "*"
+            elif zero[o]:
+                st += "0"
+            elif one[o]:
+                st += "1"
+        print(bin(i)[2:], "=>", st)
