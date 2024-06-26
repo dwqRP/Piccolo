@@ -3,16 +3,21 @@ from Bitwise_MILP import *
 import time
 import sys
 
+Min_sbox = [
+    0,
+]
+
 if __name__ == "__main__":
     start_time = last_time = time.time()
-    num_rounds = 6
+    num_rounds = 1
     Piccolo = Model("Piccolo")
     state = {}
     linear = {}
     dummy = {}
     xor = {}
     state[0] = Piccolo.addVars(16, vtype=GRB.BINARY, name="state0")
-    obj = LinExpr()
+    active_words = Piccolo.addVar(vtype=GRB.INTEGER, name="active_words")
+    sbox = LinExpr()
     for rd in range(num_rounds):
         linear[rd] = Piccolo.addVars(8, vtype=GRB.BINARY, name="linear" + str(rd))
         dummy[rd] = Piccolo.addVars(10, vtype=GRB.BINARY, name="dummy" + str(rd))
@@ -67,13 +72,17 @@ if __name__ == "__main__":
         Piccolo.addConstr(state[rd + 1][15] == state[rd][11])
 
         for i in range(4):
-            obj.add(state[rd][i])
-            obj.add(state[rd][i + 8])
-            obj.add(linear[rd][i])
-            obj.add(linear[rd][i + 4])
+            sbox.add(state[rd][i])
+            sbox.add(state[rd][i + 8])
+            sbox.add(linear[rd][i])
+            sbox.add(linear[rd][i + 4])
 
-    Piccolo.addConstr(obj >= 1)
-    Piccolo.setObjective(obj, GRB.MINIMIZE)
+    active_words = quicksum(state[0][i] for i in range(16)) + quicksum(
+        state[num_rounds][i] for i in range(16)
+    )
+    Piccolo.addConstr(sbox >= 1)
+
+    Piccolo.setObjective(sbox, GRB.MINIMIZE)
     # Piccolo.setParam("OutputFlag", 0)
     Piccolo.Params.PoolSearchMode = 2
     Piccolo.Params.PoolSolutions = 20000
