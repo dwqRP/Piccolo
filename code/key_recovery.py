@@ -199,9 +199,9 @@ def test_linear_key(test_str, r, delta, br):
                 Piccolo2.begin_round = br
                 Piccolo2.end_round = er
                 if j < 16:
-                    Piccolo2.rk[i << 1] ^= 1 << j
+                    Piccolo2.rk[i << 1] ^= 1 << (15 - j)
                 else:
-                    Piccolo2.rk[(i << 1) | 1] ^= 1 << (j - 16)
+                    Piccolo2.rk[(i << 1) | 1] ^= 1 << (31 - j)
 
                 if test_str == "input":
                     y1 = Piccolo1.encrypt(z)
@@ -242,5 +242,5 @@ if __name__ == "__main__":
         print("Encrypt Passed.")
     if my_piccolo.decrypt(ciphertxt) == 0x0123456789ABCDEF:
         print("Decrypt Passed.")
-    test_linear_key("input", 3, 0x0000000100000002, 0)
+    test_linear_key("input", 3, 0xDE000000000000AB, 0)
     # test_linear_key("output", 5, 0x100000001, 11)

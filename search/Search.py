@@ -9,7 +9,7 @@ Min_sbox = [
 
 if __name__ == "__main__":
     start_time = last_time = time.time()
-    num_rounds = 1
+    num_rounds = 5
     Piccolo = Model("Piccolo")
     state = {}
     linear = {}
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     print("Model Status:", Piccolo.Status)
     if Piccolo.Status == 2:
         best_prob = 1000
-        print(Piccolo.SolCount)
+        print("SolCount: ", Piccolo.SolCount)
         print("Minimum S-boxes: %g" % Piccolo.ObjVal)
 
         for k in range(Piccolo.SolCount):
