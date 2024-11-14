@@ -23,7 +23,9 @@ if __name__ == "__main__":
     rk_out = {}
     # active_words = Piccolo.addVar(vtype=GRB.INTEGER, name="active_words")
     sbox = LinExpr()
-    obj = LinExpr()
+    obj_in = LinExpr()
+    obj_out = LinExpr()
+    obj = Piccolo.addVar(vtype=GRB.INTEGER, name="obj")
 
     # distinguisher
     state_p[0] = Piccolo.addVars(16, vtype=GRB.BINARY, name="state_p0")
@@ -90,6 +92,7 @@ if __name__ == "__main__":
     #     state_p[p_rounds][i] for i in range(16)
     # )
     Piccolo.addConstr(sbox >= 1)
+    Piccolo.addConstr(sbox <= 32)
 
     # kin
     state_in[in_rounds - 1] = Piccolo.addVars(
@@ -136,13 +139,62 @@ if __name__ == "__main__":
         Piccolo.addConstr(rk_in[rin - 1][3] >= state_in[rin - 1][0])
         Piccolo.addConstr(rk_in[rin - 1][3] >= state_in[rin - 1][1])
         for i in range(4):
-            obj.add(8 * rk_in[rin - 1][i])
+            obj_in.add(8 * rk_in[rin - 1][i])
+            
+    # kout
+    state_out[0] = Piccolo.addVars(8, vtype=GRB.BINARY, name="state_out0")
+    Piccolo.update()
+    for i in range(8):
+        Piccolo.addConstr(state_out[0][i] >= state_p[p_rounds][i << 1])
+        Piccolo.addConstr(state_out[0][i] >= state_p[p_rounds][i << 1 | 1])
+    for rout in range(out_rounds - 1):
+        # print(rin)
+        state_out[rout + 1] = Piccolo.addVars(
+            8, vtype=GRB.BINARY, name="state_out" + str(rout + 1)
+        )
+        rk_out[rout + 1] = Piccolo.addVars(
+            4, vtype=GRB.BINARY, name="rk_out" + str(rout + 1)
+        )
+        Piccolo.update()
+        Piccolo.addConstr(state_out[rout + 1][2] == state_out[rout][4])
+        Piccolo.addConstr(state_out[rout + 1][3] == state_out[rout][1])
+        Piccolo.addConstr(state_out[rout + 1][6] == state_out[rout][0])
+        Piccolo.addConstr(state_out[rout + 1][7] == state_out[rout][5])
 
-    obj.add(2 * sbox)
+        Piccolo.addConstr(state_out[rout + 1][0] >= state_out[rout][2])
+        Piccolo.addConstr(state_out[rout + 1][0] >= state_out[rout + 1][6])
+        Piccolo.addConstr(state_out[rout + 1][0] >= state_out[rout + 1][3])
+        Piccolo.addConstr(state_out[rout + 1][5] >= state_out[rout][3])
+        Piccolo.addConstr(state_out[rout + 1][5] >= state_out[rout + 1][6])
+        Piccolo.addConstr(state_out[rout + 1][5] >= state_out[rout + 1][3])
+        
+        Piccolo.addConstr(state_out[rout + 1][1] >= state_out[rout][7])
+        Piccolo.addConstr(state_out[rout + 1][1] >= state_out[rout + 1][2])
+        Piccolo.addConstr(state_out[rout + 1][1] >= state_out[rout + 1][7])
+        Piccolo.addConstr(state_out[rout + 1][4] >= state_out[rout][6])
+        Piccolo.addConstr(state_out[rout + 1][4] >= state_out[rout + 1][2])
+        Piccolo.addConstr(state_out[rout + 1][4] >= state_out[rout + 1][7])
+
+        Piccolo.addConstr(rk_out[rout + 1][0] >= state_out[rout][4])
+        Piccolo.addConstr(rk_out[rout + 1][0] >= state_out[rout][5])
+        Piccolo.addConstr(rk_out[rout + 1][1] >= state_out[rout][0])
+        Piccolo.addConstr(rk_out[rout + 1][1] >= state_out[rout][1])
+        Piccolo.addConstr(rk_out[rout + 1][2] >= state_out[rout][0])
+        Piccolo.addConstr(rk_out[rout + 1][2] >= state_out[rout][1])
+        Piccolo.addConstr(rk_out[rout + 1][3] >= state_out[rout][4])
+        Piccolo.addConstr(rk_out[rout + 1][3] >= state_out[rout][5])
+        
+        for i in range(4):
+            obj_out.add(8 * rk_out[rout + 1][i])
+
+    obj_in.add(2 * sbox)
+    obj_out.add(2 * sbox)
+    Piccolo.addConstr(obj >= obj_in)
+    Piccolo.addConstr(obj >= obj_out)
     # Piccolo.setParam("OutputFlag", 0)
     Piccolo.setObjective(obj, GRB.MINIMIZE)
     Piccolo.Params.PoolSearchMode = 2
-    Piccolo.Params.PoolSolutions = 20000
+    Piccolo.Params.PoolSolutions = 1
     Piccolo.Params.PoolGap = 0.0
     Piccolo.optimize()
     print("Model Status:", Piccolo.Status)
@@ -151,8 +203,19 @@ if __name__ == "__main__":
         print("Minimum Obj: %g" % Piccolo.ObjVal)
         # best_prob = 1000
 
-        # for k in range(Piccolo.SolCount):
-        #     Piccolo.Params.SolutionNumber = k
+        for k in range(Piccolo.SolCount):
+            Piccolo.Params.SolutionNumber = k
+            for v in Piccolo.getVars():
+                if v.VarName.find("rk_in") != -1:
+                    if abs(v.Xn) > 1e-10:
+                        print(v.VarName, "=", v.Xn)
+                if v.VarName.find("rk_out") != -1:
+                    if abs(v.Xn) > 1e-10:
+                        print(v.VarName, "=", v.Xn)
+                if v.VarName.find("state_p") != -1:
+                    print(v.VarName, "=", v.Xn)
+                if v.VarName.find("state_in") != -1:
+                    print(v.VarName, "=", v.Xn)
         #     temp_time = time.time()
         #     if temp_time - last_time > 5:
         #         last_time = temp_time
@@ -161,15 +224,15 @@ if __name__ == "__main__":
         #                 100 * k / Piccolo.SolCount, round(temp_time - start_time)
         #             )
         #         )
-        #     sys.stdout = open("wordwise_constraints.txt", "w")
-        #     for v in Piccolo.getVars():
-        #         if v.VarName.find("state") != -1:
-        #             print(v.VarName, "=", v.Xn)
-        #         if v.VarName.find("linear") != -1:
-        #             print(v.VarName, "=", v.Xn)
-        #         # print(v.VarName, v.Xn)
-        #     sys.stdout = sys.__stdout__
-        #     temp_prob = Bitwise_solver(num_rounds, best_prob, Piccolo.ObjVal)
+            sys.stdout = open("wordwise_constraints.txt", "w")
+            for v in Piccolo.getVars():
+                if v.VarName.find("state_p") != -1:
+                    print(v.VarName, "=", v.Xn)
+                if v.VarName.find("linear") != -1:
+                    print(v.VarName, "=", v.Xn)
+                # print(v.VarName, v.Xn)
+            sys.stdout = sys.__stdout__
+            temp_prob = Bitwise_solver(p_rounds, 1000, Piccolo.ObjVal)
         #     # print(temp_prob)
         #     if temp_prob == -1:
         #         continue
