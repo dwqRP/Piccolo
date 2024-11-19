@@ -1,5 +1,4 @@
 from gurobipy import *
-import math
 import sys
 
 M = [
@@ -116,7 +115,7 @@ def process_sage_output():
     return coeff
 
 
-def Bitwise_solver(num_rounds, min_sbox=1):
+def Bitwise_solver(num_rounds, best_prob, min_sbox=1):
     assert num_rounds >= 1
 
     state[0] = Piccolo.addVars(64, vtype=GRB.BINARY, name="state0")
@@ -268,22 +267,17 @@ def Bitwise_solver(num_rounds, min_sbox=1):
     Wordwise_constraints()
 
     Piccolo.setObjective(obj, GRB.MINIMIZE)
-    # Piccolo.setParam("OutputFlag", 0)
+    Piccolo.setParam("OutputFlag", 0)
     Piccolo.write("model.lp")
-    Piccolo.Params.PoolSearchMode = 2
-    Piccolo.Params.PoolSolutions = 10
-    Piccolo.Params.PoolGap = 0.0
     Piccolo.optimize()
     # print("Model Status:", Piccolo.Status)
     # Piccolo.computeIIS()
     if Piccolo.Status == 2:
-        print("SolCount: ", Piccolo.SolCount)
-        print("Minimum Obj: %g" % Piccolo.ObjVal)
-        ans = Piccolo.ObjVal - math.log2(Piccolo.SolCount)
-        for k in range(Piccolo.SolCount):
-            Output_trail(k)
-            # Piccolo.remove(Piccolo.getVars())
-            # Piccolo.remove(Piccolo.getConstrs())
+        ans = Piccolo.ObjVal
+        if Piccolo.ObjVal < best_prob:
+            Output_trail(num_rounds)
+        Piccolo.remove(Piccolo.getVars())
+        Piccolo.remove(Piccolo.getConstrs())
         # for v in Piccolo.getVars():
         #     print(v.VarName, v.X)
         # print("Maximum Trail Prob: 2^{-%g}" % Piccolo.ObjVal)
@@ -344,12 +338,11 @@ def Wordwise_constraints():
                     )
 
 
-def Output_trail(k):
+def Output_trail(num_rounds):
     print("Differential characteristic found: Probability = 2^{-%d}" % Piccolo.ObjVal)
     rd = i = j = 0
     sti = ""
     stj = ""
-    Piccolo.Params.SolutionNumber = k
     for v in Piccolo.getVars():
         if v.VarName.find("state") != -1:
             j += 1
@@ -380,5 +373,5 @@ beforeRP = {}
 
 if __name__ == "__main__":
     # sys.stdout = open("./log/output.txt", "w")
-    Bitwise_solver(5, 25)
+    Bitwise_solver(5, 1000, 25)
     # When only the bitwise milp is running, specify the num_rounds
