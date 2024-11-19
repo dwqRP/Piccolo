@@ -140,7 +140,7 @@ if __name__ == "__main__":
         Piccolo.addConstr(rk_in[rin - 1][3] >= state_in[rin - 1][1])
         for i in range(4):
             obj_in.add(8 * rk_in[rin - 1][i])
-            
+
     # kout
     state_out[0] = Piccolo.addVars(8, vtype=GRB.BINARY, name="state_out0")
     Piccolo.update()
@@ -167,7 +167,7 @@ if __name__ == "__main__":
         Piccolo.addConstr(state_out[rout + 1][5] >= state_out[rout][3])
         Piccolo.addConstr(state_out[rout + 1][5] >= state_out[rout + 1][6])
         Piccolo.addConstr(state_out[rout + 1][5] >= state_out[rout + 1][3])
-        
+
         Piccolo.addConstr(state_out[rout + 1][1] >= state_out[rout][7])
         Piccolo.addConstr(state_out[rout + 1][1] >= state_out[rout + 1][2])
         Piccolo.addConstr(state_out[rout + 1][1] >= state_out[rout + 1][7])
@@ -183,7 +183,7 @@ if __name__ == "__main__":
         Piccolo.addConstr(rk_out[rout + 1][2] >= state_out[rout][1])
         Piccolo.addConstr(rk_out[rout + 1][3] >= state_out[rout][4])
         Piccolo.addConstr(rk_out[rout + 1][3] >= state_out[rout][5])
-        
+
         for i in range(4):
             obj_out.add(8 * rk_out[rout + 1][i])
 
@@ -194,36 +194,37 @@ if __name__ == "__main__":
     # Piccolo.setParam("OutputFlag", 0)
     Piccolo.setObjective(obj, GRB.MINIMIZE)
     Piccolo.Params.PoolSearchMode = 2
-    Piccolo.Params.PoolSolutions = 1
+    Piccolo.Params.PoolSolutions = 100
     Piccolo.Params.PoolGap = 0.0
     Piccolo.optimize()
     print("Model Status:", Piccolo.Status)
     if Piccolo.Status == 2:
         print("SolCount: ", Piccolo.SolCount)
         print("Minimum Obj: %g" % Piccolo.ObjVal)
-        # best_prob = 1000
+        best_prob = 1000
 
         for k in range(Piccolo.SolCount):
             Piccolo.Params.SolutionNumber = k
-            for v in Piccolo.getVars():
-                if v.VarName.find("rk_in") != -1:
-                    if abs(v.Xn) > 1e-10:
-                        print(v.VarName, "=", v.Xn)
-                if v.VarName.find("rk_out") != -1:
-                    if abs(v.Xn) > 1e-10:
-                        print(v.VarName, "=", v.Xn)
-                if v.VarName.find("state_p") != -1:
-                    print(v.VarName, "=", v.Xn)
-                if v.VarName.find("state_in") != -1:
-                    print(v.VarName, "=", v.Xn)
-        #     temp_time = time.time()
-        #     if temp_time - last_time > 5:
-        #         last_time = temp_time
-        #         print(
-        #             "Solved {:.2f}%    Time: {}s".format(
-        #                 100 * k / Piccolo.SolCount, round(temp_time - start_time)
-        #             )
-        #         )
+            # for v in Piccolo.getVars():
+            #     if v.VarName.find("rk_in") != -1:
+            #         if abs(v.Xn) > 1e-10:
+            #             print(v.VarName, "=", v.Xn)
+            #     if v.VarName.find("rk_out") != -1:
+            #         if abs(v.Xn) > 1e-10:
+            #             print(v.VarName, "=", v.Xn)
+            #     if v.VarName.find("state_p") != -1:
+            #         print(v.VarName, "=", v.Xn)
+            #     if v.VarName.find("state_in") != -1:
+            #         print(v.VarName, "=", v.Xn)
+            #     temp_time = time.time()
+            #     if temp_time - last_time > 5:
+            #         last_time = temp_time
+            #         print(
+            #             "Solved {:.2f}%    Time: {}s".format(
+            #                 100 * k / Piccolo.SolCount, round(temp_time - start_time)
+            #             )
+            #         )
+            min_sbox = sbox.getValue()
             sys.stdout = open("wordwise_constraints.txt", "w")
             for v in Piccolo.getVars():
                 if v.VarName.find("state_p") != -1:
@@ -232,12 +233,14 @@ if __name__ == "__main__":
                     print(v.VarName, "=", v.Xn)
                 # print(v.VarName, v.Xn)
             sys.stdout = sys.__stdout__
-            temp_prob = Bitwise_solver(p_rounds, 1000, Piccolo.ObjVal)
-        #     # print(temp_prob)
-        #     if temp_prob == -1:
-        #         continue
-        #     if temp_prob < best_prob:
-        #         best_prob = temp_prob
+            # print(sbox)
+            # print(min_sbox)
+            temp_prob = Bitwise_solver(p_rounds, best_prob, min_sbox)
+            #     # print(temp_prob)
+            if temp_prob == -1:
+                continue
+            if temp_prob < best_prob:
+                best_prob = temp_prob
 
         # sys.stdout = sys.__stdout__
         # print("Maximum Probability:", best_prob)

@@ -90,7 +90,7 @@ RP = [
 
 def process_sage_output():
     coeff = []
-    with open("ineqs.txt", "r") as f:
+    with open("./search/ineqs.txt", "r") as f:
         for line in f.readlines():
             lst = []
             line = line.strip("\n")

@@ -1,16 +1,18 @@
 mod = 19
 
-S = [0xe, 0x4, 0xb, 0x2, 0x3, 0x8, 0x0, 0x9, 0x1, 0xa, 0x7, 0xf, 0x6, 0xc, 0x5, 0xd]
+S = [0xE, 0x4, 0xB, 0x2, 0x3, 0x8, 0x0, 0x9, 0x1, 0xA, 0x7, 0xF, 0x6, 0xC, 0x5, 0xD]
+
 
 def mul(a, b):
     ans = 0
     for i in range(4):
         if a & (1 << i):
-            ans ^= (b << i)
+            ans ^= b << i
     for i in range(7, 3, -1):
         if ans & (1 << i):
-            ans ^= (mod << (i - 4))
+            ans ^= mod << (i - 4)
     return ans
+
 
 def F(input_val):
     tmp = [0] * 4
@@ -43,11 +45,12 @@ def F(input_val):
 
     return out
 
+
 def main():
-    din = 0x1102
-    dout = 0x9800
+    din = 0x24C2
+    dout = 0x5
     ans = 0
-    mx = (1 << 16)
+    mx = 1 << 16
 
     for i in range(mx):
         delta = F(i) ^ F(i ^ din)
@@ -55,6 +58,7 @@ def main():
             ans += 1
 
     print(f"{ans}/{mx}={ans / mx:.6f}")
+
 
 if __name__ == "__main__":
     main()
