@@ -5900,391 +5900,575 @@ Subject To
    + 2 Sproby4[4] + 2 Sproby4[5] + 2 Sproby4[6] + 2 Sproby4[7]
    + 2 Sproby4[8] + 2 Sproby4[9] + 2 Sproby4[10] + 2 Sproby4[11]
    + 2 Sproby4[12] + 2 Sproby4[13] + 2 Sproby4[14] + 2 Sproby4[15] >= 50
- R3362: state0[0] + state0[1] + state0[2] + state0[3] >= 1
- R3363: state0[4] + state0[5] + state0[6] + state0[7] >= 1
- R3364: state0[8] + state0[9] + state0[10] + state0[11] >= 1
- R3365: state0[12] + state0[13] + state0[14] + state0[15] >= 1
- R3366: state0[16] + state0[17] + state0[18] + state0[19] >= 1
- R3367: state0[20] + state0[21] + state0[22] + state0[23] >= 1
- R3368: state0[24] = 0
- R3369: state0[25] = 0
- R3370: state0[26] = 0
- R3371: state0[27] = 0
- R3372: state0[28] = 0
- R3373: state0[29] = 0
- R3374: state0[30] = 0
- R3375: state0[31] = 0
- R3376: state0[32] = 0
- R3377: state0[33] = 0
- R3378: state0[34] = 0
- R3379: state0[35] = 0
- R3380: state0[36] = 0
- R3381: state0[37] = 0
- R3382: state0[38] = 0
- R3383: state0[39] = 0
- R3384: state0[40] = 0
- R3385: state0[41] = 0
- R3386: state0[42] = 0
- R3387: state0[43] = 0
- R3388: state0[44] = 0
- R3389: state0[45] = 0
- R3390: state0[46] = 0
- R3391: state0[47] = 0
- R3392: state0[48] = 0
- R3393: state0[49] = 0
- R3394: state0[50] = 0
- R3395: state0[51] = 0
- R3396: state0[52] = 0
- R3397: state0[53] = 0
- R3398: state0[54] = 0
- R3399: state0[55] = 0
- R3400: state0[56] + state0[57] + state0[58] + state0[59] >= 1
- R3401: state0[60] + state0[61] + state0[62] + state0[63] >= 1
- R3402: afterM0[0] = 0
- R3403: afterM0[1] = 0
- R3404: afterM0[2] = 0
- R3405: afterM0[3] = 0
- R3406: afterM0[4] + afterM0[5] + afterM0[6] + afterM0[7] >= 1
- R3407: afterM0[8] = 0
- R3408: afterM0[9] = 0
- R3409: afterM0[10] = 0
- R3410: afterM0[11] = 0
- R3411: afterM0[12] = 0
- R3412: afterM0[13] = 0
- R3413: afterM0[14] = 0
- R3414: afterM0[15] = 0
- R3415: afterM0[16] = 0
- R3416: afterM0[17] = 0
- R3417: afterM0[18] = 0
- R3418: afterM0[19] = 0
- R3419: afterM0[20] = 0
- R3420: afterM0[21] = 0
- R3421: afterM0[22] = 0
- R3422: afterM0[23] = 0
- R3423: afterM0[24] = 0
- R3424: afterM0[25] = 0
- R3425: afterM0[26] = 0
- R3426: afterM0[27] = 0
- R3427: afterM0[28] = 0
- R3428: afterM0[29] = 0
- R3429: afterM0[30] = 0
- R3430: afterM0[31] = 0
- R3431: state1[0] + state1[1] + state1[2] + state1[3] >= 1
- R3432: state1[4] + state1[5] + state1[6] + state1[7] >= 1
- R3433: state1[8] + state1[9] + state1[10] + state1[11] >= 1
- R3434: state1[12] + state1[13] + state1[14] + state1[15] >= 1
- R3435: state1[16] = 0
- R3436: state1[17] = 0
- R3437: state1[18] = 0
- R3438: state1[19] = 0
- R3439: state1[20] = 0
- R3440: state1[21] = 0
- R3441: state1[22] = 0
- R3442: state1[23] = 0
- R3443: state1[24] + state1[25] + state1[26] + state1[27] >= 1
- R3444: state1[28] + state1[29] + state1[30] + state1[31] >= 1
- R3445: state1[32] = 0
- R3446: state1[33] = 0
- R3447: state1[34] = 0
- R3448: state1[35] = 0
- R3449: state1[36] = 0
- R3450: state1[37] = 0
- R3451: state1[38] = 0
- R3452: state1[39] = 0
- R3453: state1[40] = 0
- R3454: state1[41] = 0
- R3455: state1[42] = 0
- R3456: state1[43] = 0
- R3457: state1[44] = 0
- R3458: state1[45] = 0
- R3459: state1[46] = 0
- R3460: state1[47] = 0
- R3461: state1[48] + state1[49] + state1[50] + state1[51] >= 1
- R3462: state1[52] + state1[53] + state1[54] + state1[55] >= 1
- R3463: state1[56] = 0
- R3464: state1[57] = 0
- R3465: state1[58] = 0
- R3466: state1[59] = 0
- R3467: state1[60] = 0
- R3468: state1[61] = 0
- R3469: state1[62] = 0
- R3470: state1[63] = 0
- R3471: afterM1[0] = 0
- R3472: afterM1[1] = 0
- R3473: afterM1[2] = 0
- R3474: afterM1[3] = 0
- R3475: afterM1[4] = 0
- R3476: afterM1[5] = 0
- R3477: afterM1[6] = 0
- R3478: afterM1[7] = 0
- R3479: afterM1[8] = 0
- R3480: afterM1[9] = 0
- R3481: afterM1[10] = 0
- R3482: afterM1[11] = 0
- R3483: afterM1[12] + afterM1[13] + afterM1[14] + afterM1[15] >= 1
- R3484: afterM1[16] = 0
- R3485: afterM1[17] = 0
- R3486: afterM1[18] = 0
- R3487: afterM1[19] = 0
- R3488: afterM1[20] = 0
- R3489: afterM1[21] = 0
- R3490: afterM1[22] = 0
- R3491: afterM1[23] = 0
- R3492: afterM1[24] = 0
- R3493: afterM1[25] = 0
- R3494: afterM1[26] = 0
- R3495: afterM1[27] = 0
- R3496: afterM1[28] = 0
- R3497: afterM1[29] = 0
- R3498: afterM1[30] = 0
- R3499: afterM1[31] = 0
- R3500: state2[0] = 0
- R3501: state2[1] = 0
- R3502: state2[2] = 0
- R3503: state2[3] = 0
- R3504: state2[4] = 0
- R3505: state2[5] = 0
- R3506: state2[6] = 0
- R3507: state2[7] = 0
- R3508: state2[8] = 0
- R3509: state2[9] = 0
- R3510: state2[10] = 0
- R3511: state2[11] = 0
- R3512: state2[12] = 0
- R3513: state2[13] = 0
- R3514: state2[14] = 0
- R3515: state2[15] = 0
- R3516: state2[16] = 0
- R3517: state2[17] = 0
- R3518: state2[18] = 0
- R3519: state2[19] = 0
- R3520: state2[20] = 0
- R3521: state2[21] = 0
- R3522: state2[22] = 0
- R3523: state2[23] = 0
- R3524: state2[24] + state2[25] + state2[26] + state2[27] >= 1
- R3525: state2[28] + state2[29] + state2[30] + state2[31] >= 1
- R3526: state2[32] + state2[33] + state2[34] + state2[35] >= 1
- R3527: state2[36] + state2[37] + state2[38] + state2[39] >= 1
- R3528: state2[40] + state2[41] + state2[42] + state2[43] >= 1
- R3529: state2[44] + state2[45] + state2[46] + state2[47] >= 1
- R3530: state2[48] + state2[49] + state2[50] + state2[51] >= 1
- R3531: state2[52] + state2[53] + state2[54] + state2[55] >= 1
- R3532: state2[56] = 0
- R3533: state2[57] = 0
- R3534: state2[58] = 0
- R3535: state2[59] = 0
- R3536: state2[60] = 0
- R3537: state2[61] = 0
- R3538: state2[62] = 0
- R3539: state2[63] = 0
- R3540: afterM2[0] = 0
- R3541: afterM2[1] = 0
- R3542: afterM2[2] = 0
- R3543: afterM2[3] = 0
- R3544: afterM2[4] = 0
- R3545: afterM2[5] = 0
- R3546: afterM2[6] = 0
- R3547: afterM2[7] = 0
- R3548: afterM2[8] = 0
- R3549: afterM2[9] = 0
- R3550: afterM2[10] = 0
- R3551: afterM2[11] = 0
- R3552: afterM2[12] = 0
- R3553: afterM2[13] = 0
- R3554: afterM2[14] = 0
- R3555: afterM2[15] = 0
- R3556: afterM2[16] = 0
- R3557: afterM2[17] = 0
- R3558: afterM2[18] = 0
- R3559: afterM2[19] = 0
- R3560: afterM2[20] + afterM2[21] + afterM2[22] + afterM2[23] >= 1
- R3561: afterM2[24] = 0
- R3562: afterM2[25] = 0
- R3563: afterM2[26] = 0
- R3564: afterM2[27] = 0
- R3565: afterM2[28] = 0
- R3566: afterM2[29] = 0
- R3567: afterM2[30] = 0
- R3568: afterM2[31] = 0
- R3569: state3[0] = 0
- R3570: state3[1] = 0
- R3571: state3[2] = 0
- R3572: state3[3] = 0
- R3573: state3[4] = 0
- R3574: state3[5] = 0
- R3575: state3[6] = 0
- R3576: state3[7] = 0
- R3577: state3[8] = 0
- R3578: state3[9] = 0
- R3579: state3[10] = 0
- R3580: state3[11] = 0
- R3581: state3[12] = 0
- R3582: state3[13] = 0
- R3583: state3[14] = 0
- R3584: state3[15] = 0
- R3585: state3[16] + state3[17] + state3[18] + state3[19] >= 1
- R3586: state3[20] + state3[21] + state3[22] + state3[23] >= 1
- R3587: state3[24] = 0
- R3588: state3[25] = 0
- R3589: state3[26] = 0
- R3590: state3[27] = 0
- R3591: state3[28] = 0
- R3592: state3[29] = 0
- R3593: state3[30] = 0
- R3594: state3[31] = 0
- R3595: state3[32] + state3[33] + state3[34] + state3[35] >= 1
- R3596: state3[36] + state3[37] + state3[38] + state3[39] >= 1
- R3597: state3[40] + state3[41] + state3[42] + state3[43] >= 1
- R3598: state3[44] + state3[45] + state3[46] + state3[47] >= 1
- R3599: state3[48] = 0
- R3600: state3[49] = 0
- R3601: state3[50] = 0
- R3602: state3[51] = 0
- R3603: state3[52] = 0
- R3604: state3[53] = 0
- R3605: state3[54] = 0
- R3606: state3[55] = 0
- R3607: state3[56] + state3[57] + state3[58] + state3[59] >= 1
- R3608: state3[60] + state3[61] + state3[62] + state3[63] >= 1
- R3609: afterM3[0] = 0
- R3610: afterM3[1] = 0
- R3611: afterM3[2] = 0
- R3612: afterM3[3] = 0
- R3613: afterM3[4] = 0
- R3614: afterM3[5] = 0
- R3615: afterM3[6] = 0
- R3616: afterM3[7] = 0
- R3617: afterM3[8] = 0
- R3618: afterM3[9] = 0
- R3619: afterM3[10] = 0
- R3620: afterM3[11] = 0
- R3621: afterM3[12] = 0
- R3622: afterM3[13] = 0
- R3623: afterM3[14] = 0
- R3624: afterM3[15] = 0
- R3625: afterM3[16] = 0
- R3626: afterM3[17] = 0
- R3627: afterM3[18] = 0
- R3628: afterM3[19] = 0
- R3629: afterM3[20] = 0
- R3630: afterM3[21] = 0
- R3631: afterM3[22] = 0
- R3632: afterM3[23] = 0
- R3633: afterM3[24] = 0
- R3634: afterM3[25] = 0
- R3635: afterM3[26] = 0
- R3636: afterM3[27] = 0
- R3637: afterM3[28] + afterM3[29] + afterM3[30] + afterM3[31] >= 1
- R3638: state4[0] + state4[1] + state4[2] + state4[3] >= 1
- R3639: state4[4] + state4[5] + state4[6] + state4[7] >= 1
- R3640: state4[8] + state4[9] + state4[10] + state4[11] >= 1
- R3641: state4[12] + state4[13] + state4[14] + state4[15] >= 1
- R3642: state4[16] + state4[17] + state4[18] + state4[19] >= 1
- R3643: state4[20] + state4[21] + state4[22] + state4[23] >= 1
- R3644: state4[24] = 0
- R3645: state4[25] = 0
- R3646: state4[26] = 0
- R3647: state4[27] = 0
- R3648: state4[28] = 0
- R3649: state4[29] = 0
- R3650: state4[30] = 0
- R3651: state4[31] = 0
- R3652: state4[32] = 0
- R3653: state4[33] = 0
- R3654: state4[34] = 0
- R3655: state4[35] = 0
- R3656: state4[36] = 0
- R3657: state4[37] = 0
- R3658: state4[38] = 0
- R3659: state4[39] = 0
- R3660: state4[40] = 0
- R3661: state4[41] = 0
- R3662: state4[42] = 0
- R3663: state4[43] = 0
- R3664: state4[44] = 0
- R3665: state4[45] = 0
- R3666: state4[46] = 0
- R3667: state4[47] = 0
- R3668: state4[48] = 0
- R3669: state4[49] = 0
- R3670: state4[50] = 0
- R3671: state4[51] = 0
- R3672: state4[52] = 0
- R3673: state4[53] = 0
- R3674: state4[54] = 0
- R3675: state4[55] = 0
- R3676: state4[56] + state4[57] + state4[58] + state4[59] >= 1
- R3677: state4[60] + state4[61] + state4[62] + state4[63] >= 1
- R3678: afterM4[0] = 0
- R3679: afterM4[1] = 0
- R3680: afterM4[2] = 0
- R3681: afterM4[3] = 0
- R3682: afterM4[4] + afterM4[5] + afterM4[6] + afterM4[7] >= 1
- R3683: afterM4[8] = 0
- R3684: afterM4[9] = 0
- R3685: afterM4[10] = 0
- R3686: afterM4[11] = 0
- R3687: afterM4[12] = 0
- R3688: afterM4[13] = 0
- R3689: afterM4[14] = 0
- R3690: afterM4[15] = 0
- R3691: afterM4[16] = 0
- R3692: afterM4[17] = 0
- R3693: afterM4[18] = 0
- R3694: afterM4[19] = 0
- R3695: afterM4[20] = 0
- R3696: afterM4[21] = 0
- R3697: afterM4[22] = 0
- R3698: afterM4[23] = 0
- R3699: afterM4[24] = 0
- R3700: afterM4[25] = 0
- R3701: afterM4[26] = 0
- R3702: afterM4[27] = 0
- R3703: afterM4[28] = 0
- R3704: afterM4[29] = 0
- R3705: afterM4[30] = 0
- R3706: afterM4[31] = 0
- R3707: state5[0] + state5[1] + state5[2] + state5[3] >= 1
- R3708: state5[4] + state5[5] + state5[6] + state5[7] >= 1
- R3709: state5[8] + state5[9] + state5[10] + state5[11] >= 1
- R3710: state5[12] + state5[13] + state5[14] + state5[15] >= 1
- R3711: state5[16] = 0
- R3712: state5[17] = 0
- R3713: state5[18] = 0
- R3714: state5[19] = 0
- R3715: state5[20] = 0
- R3716: state5[21] = 0
- R3717: state5[22] = 0
- R3718: state5[23] = 0
- R3719: state5[24] + state5[25] + state5[26] + state5[27] >= 1
- R3720: state5[28] + state5[29] + state5[30] + state5[31] >= 1
- R3721: state5[32] = 0
- R3722: state5[33] = 0
- R3723: state5[34] = 0
- R3724: state5[35] = 0
- R3725: state5[36] = 0
- R3726: state5[37] = 0
- R3727: state5[38] = 0
- R3728: state5[39] = 0
- R3729: state5[40] = 0
- R3730: state5[41] = 0
- R3731: state5[42] = 0
- R3732: state5[43] = 0
- R3733: state5[44] = 0
- R3734: state5[45] = 0
- R3735: state5[46] = 0
- R3736: state5[47] = 0
- R3737: state5[48] + state5[49] + state5[50] + state5[51] >= 1
- R3738: state5[52] + state5[53] + state5[54] + state5[55] >= 1
- R3739: state5[56] = 0
- R3740: state5[57] = 0
- R3741: state5[58] = 0
- R3742: state5[59] = 0
- R3743: state5[60] = 0
- R3744: state5[61] = 0
- R3745: state5[62] = 0
- R3746: state5[63] = 0
+ R3362: 3 Sprobx0[0] + 3 Sprobx0[1] + 3 Sprobx0[2] + 3 Sprobx0[3]
+   + 3 Sprobx0[4] + 3 Sprobx0[5] + 3 Sprobx0[6] + 3 Sprobx0[7]
+   + 3 Sprobx0[8] + 3 Sprobx0[9] + 3 Sprobx0[10] + 3 Sprobx0[11]
+   + 3 Sprobx0[12] + 3 Sprobx0[13] + 3 Sprobx0[14] + 3 Sprobx0[15]
+   + 2 Sproby0[0] + 2 Sproby0[1] + 2 Sproby0[2] + 2 Sproby0[3]
+   + 2 Sproby0[4] + 2 Sproby0[5] + 2 Sproby0[6] + 2 Sproby0[7]
+   + 2 Sproby0[8] + 2 Sproby0[9] + 2 Sproby0[10] + 2 Sproby0[11]
+   + 2 Sproby0[12] + 2 Sproby0[13] + 2 Sproby0[14] + 2 Sproby0[15] >= 0
+ R3363: 3 Sprobx4[0] + 3 Sprobx4[1] + 3 Sprobx4[2] + 3 Sprobx4[3]
+   + 3 Sprobx4[4] + 3 Sprobx4[5] + 3 Sprobx4[6] + 3 Sprobx4[7]
+   + 3 Sprobx4[8] + 3 Sprobx4[9] + 3 Sprobx4[10] + 3 Sprobx4[11]
+   + 3 Sprobx4[12] + 3 Sprobx4[13] + 3 Sprobx4[14] + 3 Sprobx4[15]
+   + 2 Sproby4[0] + 2 Sproby4[1] + 2 Sproby4[2] + 2 Sproby4[3]
+   + 2 Sproby4[4] + 2 Sproby4[5] + 2 Sproby4[6] + 2 Sproby4[7]
+   + 2 Sproby4[8] + 2 Sproby4[9] + 2 Sproby4[10] + 2 Sproby4[11]
+   + 2 Sproby4[12] + 2 Sproby4[13] + 2 Sproby4[14] + 2 Sproby4[15] >= 0
+ R3364: 3 Sprobx0[0] + 3 Sprobx0[1] + 3 Sprobx0[2] + 3 Sprobx0[3]
+   + 3 Sprobx0[4] + 3 Sprobx0[5] + 3 Sprobx0[6] + 3 Sprobx0[7]
+   + 3 Sprobx0[8] + 3 Sprobx0[9] + 3 Sprobx0[10] + 3 Sprobx0[11]
+   + 3 Sprobx0[12] + 3 Sprobx0[13] + 3 Sprobx0[14] + 3 Sprobx0[15]
+   + 2 Sproby0[0] + 2 Sproby0[1] + 2 Sproby0[2] + 2 Sproby0[3]
+   + 2 Sproby0[4] + 2 Sproby0[5] + 2 Sproby0[6] + 2 Sproby0[7]
+   + 2 Sproby0[8] + 2 Sproby0[9] + 2 Sproby0[10] + 2 Sproby0[11]
+   + 2 Sproby0[12] + 2 Sproby0[13] + 2 Sproby0[14] + 2 Sproby0[15]
+   + 3 Sprobx1[0] + 3 Sprobx1[1] + 3 Sprobx1[2] + 3 Sprobx1[3]
+   + 3 Sprobx1[4] + 3 Sprobx1[5] + 3 Sprobx1[6] + 3 Sprobx1[7]
+   + 3 Sprobx1[8] + 3 Sprobx1[9] + 3 Sprobx1[10] + 3 Sprobx1[11]
+   + 3 Sprobx1[12] + 3 Sprobx1[13] + 3 Sprobx1[14] + 3 Sprobx1[15]
+   + 2 Sproby1[0] + 2 Sproby1[1] + 2 Sproby1[2] + 2 Sproby1[3]
+   + 2 Sproby1[4] + 2 Sproby1[5] + 2 Sproby1[6] + 2 Sproby1[7]
+   + 2 Sproby1[8] + 2 Sproby1[9] + 2 Sproby1[10] + 2 Sproby1[11]
+   + 2 Sproby1[12] + 2 Sproby1[13] + 2 Sproby1[14] + 2 Sproby1[15] >= 10
+ R3365: 3 Sprobx3[0] + 3 Sprobx3[1] + 3 Sprobx3[2] + 3 Sprobx3[3]
+   + 3 Sprobx3[4] + 3 Sprobx3[5] + 3 Sprobx3[6] + 3 Sprobx3[7]
+   + 3 Sprobx3[8] + 3 Sprobx3[9] + 3 Sprobx3[10] + 3 Sprobx3[11]
+   + 3 Sprobx3[12] + 3 Sprobx3[13] + 3 Sprobx3[14] + 3 Sprobx3[15]
+   + 2 Sproby3[0] + 2 Sproby3[1] + 2 Sproby3[2] + 2 Sproby3[3]
+   + 2 Sproby3[4] + 2 Sproby3[5] + 2 Sproby3[6] + 2 Sproby3[7]
+   + 2 Sproby3[8] + 2 Sproby3[9] + 2 Sproby3[10] + 2 Sproby3[11]
+   + 2 Sproby3[12] + 2 Sproby3[13] + 2 Sproby3[14] + 2 Sproby3[15]
+   + 3 Sprobx4[0] + 3 Sprobx4[1] + 3 Sprobx4[2] + 3 Sprobx4[3]
+   + 3 Sprobx4[4] + 3 Sprobx4[5] + 3 Sprobx4[6] + 3 Sprobx4[7]
+   + 3 Sprobx4[8] + 3 Sprobx4[9] + 3 Sprobx4[10] + 3 Sprobx4[11]
+   + 3 Sprobx4[12] + 3 Sprobx4[13] + 3 Sprobx4[14] + 3 Sprobx4[15]
+   + 2 Sproby4[0] + 2 Sproby4[1] + 2 Sproby4[2] + 2 Sproby4[3]
+   + 2 Sproby4[4] + 2 Sproby4[5] + 2 Sproby4[6] + 2 Sproby4[7]
+   + 2 Sproby4[8] + 2 Sproby4[9] + 2 Sproby4[10] + 2 Sproby4[11]
+   + 2 Sproby4[12] + 2 Sproby4[13] + 2 Sproby4[14] + 2 Sproby4[15] >= 10
+ R3366: 3 Sprobx0[0] + 3 Sprobx0[1] + 3 Sprobx0[2] + 3 Sprobx0[3]
+   + 3 Sprobx0[4] + 3 Sprobx0[5] + 3 Sprobx0[6] + 3 Sprobx0[7]
+   + 3 Sprobx0[8] + 3 Sprobx0[9] + 3 Sprobx0[10] + 3 Sprobx0[11]
+   + 3 Sprobx0[12] + 3 Sprobx0[13] + 3 Sprobx0[14] + 3 Sprobx0[15]
+   + 2 Sproby0[0] + 2 Sproby0[1] + 2 Sproby0[2] + 2 Sproby0[3]
+   + 2 Sproby0[4] + 2 Sproby0[5] + 2 Sproby0[6] + 2 Sproby0[7]
+   + 2 Sproby0[8] + 2 Sproby0[9] + 2 Sproby0[10] + 2 Sproby0[11]
+   + 2 Sproby0[12] + 2 Sproby0[13] + 2 Sproby0[14] + 2 Sproby0[15]
+   + 3 Sprobx1[0] + 3 Sprobx1[1] + 3 Sprobx1[2] + 3 Sprobx1[3]
+   + 3 Sprobx1[4] + 3 Sprobx1[5] + 3 Sprobx1[6] + 3 Sprobx1[7]
+   + 3 Sprobx1[8] + 3 Sprobx1[9] + 3 Sprobx1[10] + 3 Sprobx1[11]
+   + 3 Sprobx1[12] + 3 Sprobx1[13] + 3 Sprobx1[14] + 3 Sprobx1[15]
+   + 2 Sproby1[0] + 2 Sproby1[1] + 2 Sproby1[2] + 2 Sproby1[3]
+   + 2 Sproby1[4] + 2 Sproby1[5] + 2 Sproby1[6] + 2 Sproby1[7]
+   + 2 Sproby1[8] + 2 Sproby1[9] + 2 Sproby1[10] + 2 Sproby1[11]
+   + 2 Sproby1[12] + 2 Sproby1[13] + 2 Sproby1[14] + 2 Sproby1[15]
+   + 3 Sprobx2[0] + 3 Sprobx2[1] + 3 Sprobx2[2] + 3 Sprobx2[3]
+   + 3 Sprobx2[4] + 3 Sprobx2[5] + 3 Sprobx2[6] + 3 Sprobx2[7]
+   + 3 Sprobx2[8] + 3 Sprobx2[9] + 3 Sprobx2[10] + 3 Sprobx2[11]
+   + 3 Sprobx2[12] + 3 Sprobx2[13] + 3 Sprobx2[14] + 3 Sprobx2[15]
+   + 2 Sproby2[0] + 2 Sproby2[1] + 2 Sproby2[2] + 2 Sproby2[3]
+   + 2 Sproby2[4] + 2 Sproby2[5] + 2 Sproby2[6] + 2 Sproby2[7]
+   + 2 Sproby2[8] + 2 Sproby2[9] + 2 Sproby2[10] + 2 Sproby2[11]
+   + 2 Sproby2[12] + 2 Sproby2[13] + 2 Sproby2[14] + 2 Sproby2[15] >= 20
+ R3367: 3 Sprobx2[0] + 3 Sprobx2[1] + 3 Sprobx2[2] + 3 Sprobx2[3]
+   + 3 Sprobx2[4] + 3 Sprobx2[5] + 3 Sprobx2[6] + 3 Sprobx2[7]
+   + 3 Sprobx2[8] + 3 Sprobx2[9] + 3 Sprobx2[10] + 3 Sprobx2[11]
+   + 3 Sprobx2[12] + 3 Sprobx2[13] + 3 Sprobx2[14] + 3 Sprobx2[15]
+   + 2 Sproby2[0] + 2 Sproby2[1] + 2 Sproby2[2] + 2 Sproby2[3]
+   + 2 Sproby2[4] + 2 Sproby2[5] + 2 Sproby2[6] + 2 Sproby2[7]
+   + 2 Sproby2[8] + 2 Sproby2[9] + 2 Sproby2[10] + 2 Sproby2[11]
+   + 2 Sproby2[12] + 2 Sproby2[13] + 2 Sproby2[14] + 2 Sproby2[15]
+   + 3 Sprobx3[0] + 3 Sprobx3[1] + 3 Sprobx3[2] + 3 Sprobx3[3]
+   + 3 Sprobx3[4] + 3 Sprobx3[5] + 3 Sprobx3[6] + 3 Sprobx3[7]
+   + 3 Sprobx3[8] + 3 Sprobx3[9] + 3 Sprobx3[10] + 3 Sprobx3[11]
+   + 3 Sprobx3[12] + 3 Sprobx3[13] + 3 Sprobx3[14] + 3 Sprobx3[15]
+   + 2 Sproby3[0] + 2 Sproby3[1] + 2 Sproby3[2] + 2 Sproby3[3]
+   + 2 Sproby3[4] + 2 Sproby3[5] + 2 Sproby3[6] + 2 Sproby3[7]
+   + 2 Sproby3[8] + 2 Sproby3[9] + 2 Sproby3[10] + 2 Sproby3[11]
+   + 2 Sproby3[12] + 2 Sproby3[13] + 2 Sproby3[14] + 2 Sproby3[15]
+   + 3 Sprobx4[0] + 3 Sprobx4[1] + 3 Sprobx4[2] + 3 Sprobx4[3]
+   + 3 Sprobx4[4] + 3 Sprobx4[5] + 3 Sprobx4[6] + 3 Sprobx4[7]
+   + 3 Sprobx4[8] + 3 Sprobx4[9] + 3 Sprobx4[10] + 3 Sprobx4[11]
+   + 3 Sprobx4[12] + 3 Sprobx4[13] + 3 Sprobx4[14] + 3 Sprobx4[15]
+   + 2 Sproby4[0] + 2 Sproby4[1] + 2 Sproby4[2] + 2 Sproby4[3]
+   + 2 Sproby4[4] + 2 Sproby4[5] + 2 Sproby4[6] + 2 Sproby4[7]
+   + 2 Sproby4[8] + 2 Sproby4[9] + 2 Sproby4[10] + 2 Sproby4[11]
+   + 2 Sproby4[12] + 2 Sproby4[13] + 2 Sproby4[14] + 2 Sproby4[15] >= 20
+ R3368: 3 Sprobx0[0] + 3 Sprobx0[1] + 3 Sprobx0[2] + 3 Sprobx0[3]
+   + 3 Sprobx0[4] + 3 Sprobx0[5] + 3 Sprobx0[6] + 3 Sprobx0[7]
+   + 3 Sprobx0[8] + 3 Sprobx0[9] + 3 Sprobx0[10] + 3 Sprobx0[11]
+   + 3 Sprobx0[12] + 3 Sprobx0[13] + 3 Sprobx0[14] + 3 Sprobx0[15]
+   + 2 Sproby0[0] + 2 Sproby0[1] + 2 Sproby0[2] + 2 Sproby0[3]
+   + 2 Sproby0[4] + 2 Sproby0[5] + 2 Sproby0[6] + 2 Sproby0[7]
+   + 2 Sproby0[8] + 2 Sproby0[9] + 2 Sproby0[10] + 2 Sproby0[11]
+   + 2 Sproby0[12] + 2 Sproby0[13] + 2 Sproby0[14] + 2 Sproby0[15]
+   + 3 Sprobx1[0] + 3 Sprobx1[1] + 3 Sprobx1[2] + 3 Sprobx1[3]
+   + 3 Sprobx1[4] + 3 Sprobx1[5] + 3 Sprobx1[6] + 3 Sprobx1[7]
+   + 3 Sprobx1[8] + 3 Sprobx1[9] + 3 Sprobx1[10] + 3 Sprobx1[11]
+   + 3 Sprobx1[12] + 3 Sprobx1[13] + 3 Sprobx1[14] + 3 Sprobx1[15]
+   + 2 Sproby1[0] + 2 Sproby1[1] + 2 Sproby1[2] + 2 Sproby1[3]
+   + 2 Sproby1[4] + 2 Sproby1[5] + 2 Sproby1[6] + 2 Sproby1[7]
+   + 2 Sproby1[8] + 2 Sproby1[9] + 2 Sproby1[10] + 2 Sproby1[11]
+   + 2 Sproby1[12] + 2 Sproby1[13] + 2 Sproby1[14] + 2 Sproby1[15]
+   + 3 Sprobx2[0] + 3 Sprobx2[1] + 3 Sprobx2[2] + 3 Sprobx2[3]
+   + 3 Sprobx2[4] + 3 Sprobx2[5] + 3 Sprobx2[6] + 3 Sprobx2[7]
+   + 3 Sprobx2[8] + 3 Sprobx2[9] + 3 Sprobx2[10] + 3 Sprobx2[11]
+   + 3 Sprobx2[12] + 3 Sprobx2[13] + 3 Sprobx2[14] + 3 Sprobx2[15]
+   + 2 Sproby2[0] + 2 Sproby2[1] + 2 Sproby2[2] + 2 Sproby2[3]
+   + 2 Sproby2[4] + 2 Sproby2[5] + 2 Sproby2[6] + 2 Sproby2[7]
+   + 2 Sproby2[8] + 2 Sproby2[9] + 2 Sproby2[10] + 2 Sproby2[11]
+   + 2 Sproby2[12] + 2 Sproby2[13] + 2 Sproby2[14] + 2 Sproby2[15]
+   + 3 Sprobx3[0] + 3 Sprobx3[1] + 3 Sprobx3[2] + 3 Sprobx3[3]
+   + 3 Sprobx3[4] + 3 Sprobx3[5] + 3 Sprobx3[6] + 3 Sprobx3[7]
+   + 3 Sprobx3[8] + 3 Sprobx3[9] + 3 Sprobx3[10] + 3 Sprobx3[11]
+   + 3 Sprobx3[12] + 3 Sprobx3[13] + 3 Sprobx3[14] + 3 Sprobx3[15]
+   + 2 Sproby3[0] + 2 Sproby3[1] + 2 Sproby3[2] + 2 Sproby3[3]
+   + 2 Sproby3[4] + 2 Sproby3[5] + 2 Sproby3[6] + 2 Sproby3[7]
+   + 2 Sproby3[8] + 2 Sproby3[9] + 2 Sproby3[10] + 2 Sproby3[11]
+   + 2 Sproby3[12] + 2 Sproby3[13] + 2 Sproby3[14] + 2 Sproby3[15] >= 31
+ R3369: 3 Sprobx1[0] + 3 Sprobx1[1] + 3 Sprobx1[2] + 3 Sprobx1[3]
+   + 3 Sprobx1[4] + 3 Sprobx1[5] + 3 Sprobx1[6] + 3 Sprobx1[7]
+   + 3 Sprobx1[8] + 3 Sprobx1[9] + 3 Sprobx1[10] + 3 Sprobx1[11]
+   + 3 Sprobx1[12] + 3 Sprobx1[13] + 3 Sprobx1[14] + 3 Sprobx1[15]
+   + 2 Sproby1[0] + 2 Sproby1[1] + 2 Sproby1[2] + 2 Sproby1[3]
+   + 2 Sproby1[4] + 2 Sproby1[5] + 2 Sproby1[6] + 2 Sproby1[7]
+   + 2 Sproby1[8] + 2 Sproby1[9] + 2 Sproby1[10] + 2 Sproby1[11]
+   + 2 Sproby1[12] + 2 Sproby1[13] + 2 Sproby1[14] + 2 Sproby1[15]
+   + 3 Sprobx2[0] + 3 Sprobx2[1] + 3 Sprobx2[2] + 3 Sprobx2[3]
+   + 3 Sprobx2[4] + 3 Sprobx2[5] + 3 Sprobx2[6] + 3 Sprobx2[7]
+   + 3 Sprobx2[8] + 3 Sprobx2[9] + 3 Sprobx2[10] + 3 Sprobx2[11]
+   + 3 Sprobx2[12] + 3 Sprobx2[13] + 3 Sprobx2[14] + 3 Sprobx2[15]
+   + 2 Sproby2[0] + 2 Sproby2[1] + 2 Sproby2[2] + 2 Sproby2[3]
+   + 2 Sproby2[4] + 2 Sproby2[5] + 2 Sproby2[6] + 2 Sproby2[7]
+   + 2 Sproby2[8] + 2 Sproby2[9] + 2 Sproby2[10] + 2 Sproby2[11]
+   + 2 Sproby2[12] + 2 Sproby2[13] + 2 Sproby2[14] + 2 Sproby2[15]
+   + 3 Sprobx3[0] + 3 Sprobx3[1] + 3 Sprobx3[2] + 3 Sprobx3[3]
+   + 3 Sprobx3[4] + 3 Sprobx3[5] + 3 Sprobx3[6] + 3 Sprobx3[7]
+   + 3 Sprobx3[8] + 3 Sprobx3[9] + 3 Sprobx3[10] + 3 Sprobx3[11]
+   + 3 Sprobx3[12] + 3 Sprobx3[13] + 3 Sprobx3[14] + 3 Sprobx3[15]
+   + 2 Sproby3[0] + 2 Sproby3[1] + 2 Sproby3[2] + 2 Sproby3[3]
+   + 2 Sproby3[4] + 2 Sproby3[5] + 2 Sproby3[6] + 2 Sproby3[7]
+   + 2 Sproby3[8] + 2 Sproby3[9] + 2 Sproby3[10] + 2 Sproby3[11]
+   + 2 Sproby3[12] + 2 Sproby3[13] + 2 Sproby3[14] + 2 Sproby3[15]
+   + 3 Sprobx4[0] + 3 Sprobx4[1] + 3 Sprobx4[2] + 3 Sprobx4[3]
+   + 3 Sprobx4[4] + 3 Sprobx4[5] + 3 Sprobx4[6] + 3 Sprobx4[7]
+   + 3 Sprobx4[8] + 3 Sprobx4[9] + 3 Sprobx4[10] + 3 Sprobx4[11]
+   + 3 Sprobx4[12] + 3 Sprobx4[13] + 3 Sprobx4[14] + 3 Sprobx4[15]
+   + 2 Sproby4[0] + 2 Sproby4[1] + 2 Sproby4[2] + 2 Sproby4[3]
+   + 2 Sproby4[4] + 2 Sproby4[5] + 2 Sproby4[6] + 2 Sproby4[7]
+   + 2 Sproby4[8] + 2 Sproby4[9] + 2 Sproby4[10] + 2 Sproby4[11]
+   + 2 Sproby4[12] + 2 Sproby4[13] + 2 Sproby4[14] + 2 Sproby4[15] >= 31
+ R3370: state0[0] + state0[1] + state0[2] + state0[3] >= 1
+ R3371: state0[4] + state0[5] + state0[6] + state0[7] >= 1
+ R3372: state0[8] + state0[9] + state0[10] + state0[11] >= 1
+ R3373: state0[12] = 0
+ R3374: state0[13] = 0
+ R3375: state0[14] = 0
+ R3376: state0[15] = 0
+ R3377: state0[16] + state0[17] + state0[18] + state0[19] >= 1
+ R3378: state0[20] + state0[21] + state0[22] + state0[23] >= 1
+ R3379: state0[24] = 0
+ R3380: state0[25] = 0
+ R3381: state0[26] = 0
+ R3382: state0[27] = 0
+ R3383: state0[28] = 0
+ R3384: state0[29] = 0
+ R3385: state0[30] = 0
+ R3386: state0[31] = 0
+ R3387: state0[32] = 0
+ R3388: state0[33] = 0
+ R3389: state0[34] = 0
+ R3390: state0[35] = 0
+ R3391: state0[36] = 0
+ R3392: state0[37] = 0
+ R3393: state0[38] = 0
+ R3394: state0[39] = 0
+ R3395: state0[40] = 0
+ R3396: state0[41] = 0
+ R3397: state0[42] = 0
+ R3398: state0[43] = 0
+ R3399: state0[44] = 0
+ R3400: state0[45] = 0
+ R3401: state0[46] = 0
+ R3402: state0[47] = 0
+ R3403: state0[48] = 0
+ R3404: state0[49] = 0
+ R3405: state0[50] = 0
+ R3406: state0[51] = 0
+ R3407: state0[52] = 0
+ R3408: state0[53] = 0
+ R3409: state0[54] = 0
+ R3410: state0[55] = 0
+ R3411: state0[56] + state0[57] + state0[58] + state0[59] >= 1
+ R3412: state0[60] = 0
+ R3413: state0[61] = 0
+ R3414: state0[62] = 0
+ R3415: state0[63] = 0
+ R3416: afterM0[0] + afterM0[1] + afterM0[2] + afterM0[3] >= 1
+ R3417: afterM0[4] + afterM0[5] + afterM0[6] + afterM0[7] >= 1
+ R3418: afterM0[8] = 0
+ R3419: afterM0[9] = 0
+ R3420: afterM0[10] = 0
+ R3421: afterM0[11] = 0
+ R3422: afterM0[12] = 0
+ R3423: afterM0[13] = 0
+ R3424: afterM0[14] = 0
+ R3425: afterM0[15] = 0
+ R3426: afterM0[16] = 0
+ R3427: afterM0[17] = 0
+ R3428: afterM0[18] = 0
+ R3429: afterM0[19] = 0
+ R3430: afterM0[20] = 0
+ R3431: afterM0[21] = 0
+ R3432: afterM0[22] = 0
+ R3433: afterM0[23] = 0
+ R3434: afterM0[24] = 0
+ R3435: afterM0[25] = 0
+ R3436: afterM0[26] = 0
+ R3437: afterM0[27] = 0
+ R3438: afterM0[28] = 0
+ R3439: afterM0[29] = 0
+ R3440: afterM0[30] = 0
+ R3441: afterM0[31] = 0
+ R3442: state1[0] + state1[1] + state1[2] + state1[3] >= 1
+ R3443: state1[4] + state1[5] + state1[6] + state1[7] >= 1
+ R3444: state1[8] + state1[9] + state1[10] + state1[11] >= 1
+ R3445: state1[12] = 0
+ R3446: state1[13] = 0
+ R3447: state1[14] = 0
+ R3448: state1[15] = 0
+ R3449: state1[16] = 0
+ R3450: state1[17] = 0
+ R3451: state1[18] = 0
+ R3452: state1[19] = 0
+ R3453: state1[20] = 0
+ R3454: state1[21] = 0
+ R3455: state1[22] = 0
+ R3456: state1[23] = 0
+ R3457: state1[24] + state1[25] + state1[26] + state1[27] >= 1
+ R3458: state1[28] = 0
+ R3459: state1[29] = 0
+ R3460: state1[30] = 0
+ R3461: state1[31] = 0
+ R3462: state1[32] = 0
+ R3463: state1[33] = 0
+ R3464: state1[34] = 0
+ R3465: state1[35] = 0
+ R3466: state1[36] = 0
+ R3467: state1[37] = 0
+ R3468: state1[38] = 0
+ R3469: state1[39] = 0
+ R3470: state1[40] = 0
+ R3471: state1[41] = 0
+ R3472: state1[42] = 0
+ R3473: state1[43] = 0
+ R3474: state1[44] = 0
+ R3475: state1[45] = 0
+ R3476: state1[46] = 0
+ R3477: state1[47] = 0
+ R3478: state1[48] + state1[49] + state1[50] + state1[51] >= 1
+ R3479: state1[52] + state1[53] + state1[54] + state1[55] >= 1
+ R3480: state1[56] = 0
+ R3481: state1[57] = 0
+ R3482: state1[58] = 0
+ R3483: state1[59] = 0
+ R3484: state1[60] = 0
+ R3485: state1[61] = 0
+ R3486: state1[62] = 0
+ R3487: state1[63] = 0
+ R3488: afterM1[0] = 0
+ R3489: afterM1[1] = 0
+ R3490: afterM1[2] = 0
+ R3491: afterM1[3] = 0
+ R3492: afterM1[4] = 0
+ R3493: afterM1[5] = 0
+ R3494: afterM1[6] = 0
+ R3495: afterM1[7] = 0
+ R3496: afterM1[8] + afterM1[9] + afterM1[10] + afterM1[11] >= 1
+ R3497: afterM1[12] + afterM1[13] + afterM1[14] + afterM1[15] >= 1
+ R3498: afterM1[16] = 0
+ R3499: afterM1[17] = 0
+ R3500: afterM1[18] = 0
+ R3501: afterM1[19] = 0
+ R3502: afterM1[20] = 0
+ R3503: afterM1[21] = 0
+ R3504: afterM1[22] = 0
+ R3505: afterM1[23] = 0
+ R3506: afterM1[24] = 0
+ R3507: afterM1[25] = 0
+ R3508: afterM1[26] = 0
+ R3509: afterM1[27] = 0
+ R3510: afterM1[28] = 0
+ R3511: afterM1[29] = 0
+ R3512: afterM1[30] = 0
+ R3513: afterM1[31] = 0
+ R3514: state2[0] = 0
+ R3515: state2[1] = 0
+ R3516: state2[2] = 0
+ R3517: state2[3] = 0
+ R3518: state2[4] = 0
+ R3519: state2[5] = 0
+ R3520: state2[6] = 0
+ R3521: state2[7] = 0
+ R3522: state2[8] = 0
+ R3523: state2[9] = 0
+ R3524: state2[10] = 0
+ R3525: state2[11] = 0
+ R3526: state2[12] = 0
+ R3527: state2[13] = 0
+ R3528: state2[14] = 0
+ R3529: state2[15] = 0
+ R3530: state2[16] = 0
+ R3531: state2[17] = 0
+ R3532: state2[18] = 0
+ R3533: state2[19] = 0
+ R3534: state2[20] = 0
+ R3535: state2[21] = 0
+ R3536: state2[22] = 0
+ R3537: state2[23] = 0
+ R3538: state2[24] + state2[25] + state2[26] + state2[27] >= 1
+ R3539: state2[28] = 0
+ R3540: state2[29] = 0
+ R3541: state2[30] = 0
+ R3542: state2[31] = 0
+ R3543: state2[32] + state2[33] + state2[34] + state2[35] >= 1
+ R3544: state2[36] + state2[37] + state2[38] + state2[39] >= 1
+ R3545: state2[40] + state2[41] + state2[42] + state2[43] >= 1
+ R3546: state2[44] + state2[45] + state2[46] + state2[47] >= 1
+ R3547: state2[48] + state2[49] + state2[50] + state2[51] >= 1
+ R3548: state2[52] + state2[53] + state2[54] + state2[55] >= 1
+ R3549: state2[56] = 0
+ R3550: state2[57] = 0
+ R3551: state2[58] = 0
+ R3552: state2[59] = 0
+ R3553: state2[60] = 0
+ R3554: state2[61] = 0
+ R3555: state2[62] = 0
+ R3556: state2[63] = 0
+ R3557: afterM2[0] = 0
+ R3558: afterM2[1] = 0
+ R3559: afterM2[2] = 0
+ R3560: afterM2[3] = 0
+ R3561: afterM2[4] = 0
+ R3562: afterM2[5] = 0
+ R3563: afterM2[6] = 0
+ R3564: afterM2[7] = 0
+ R3565: afterM2[8] = 0
+ R3566: afterM2[9] = 0
+ R3567: afterM2[10] = 0
+ R3568: afterM2[11] = 0
+ R3569: afterM2[12] = 0
+ R3570: afterM2[13] = 0
+ R3571: afterM2[14] = 0
+ R3572: afterM2[15] = 0
+ R3573: afterM2[16] = 0
+ R3574: afterM2[17] = 0
+ R3575: afterM2[18] = 0
+ R3576: afterM2[19] = 0
+ R3577: afterM2[20] + afterM2[21] + afterM2[22] + afterM2[23] >= 1
+ R3578: afterM2[24] = 0
+ R3579: afterM2[25] = 0
+ R3580: afterM2[26] = 0
+ R3581: afterM2[27] = 0
+ R3582: afterM2[28] = 0
+ R3583: afterM2[29] = 0
+ R3584: afterM2[30] = 0
+ R3585: afterM2[31] = 0
+ R3586: state3[0] = 0
+ R3587: state3[1] = 0
+ R3588: state3[2] = 0
+ R3589: state3[3] = 0
+ R3590: state3[4] = 0
+ R3591: state3[5] = 0
+ R3592: state3[6] = 0
+ R3593: state3[7] = 0
+ R3594: state3[8] = 0
+ R3595: state3[9] = 0
+ R3596: state3[10] = 0
+ R3597: state3[11] = 0
+ R3598: state3[12] = 0
+ R3599: state3[13] = 0
+ R3600: state3[14] = 0
+ R3601: state3[15] = 0
+ R3602: state3[16] + state3[17] + state3[18] + state3[19] >= 1
+ R3603: state3[20] + state3[21] + state3[22] + state3[23] >= 1
+ R3604: state3[24] = 0
+ R3605: state3[25] = 0
+ R3606: state3[26] = 0
+ R3607: state3[27] = 0
+ R3608: state3[28] = 0
+ R3609: state3[29] = 0
+ R3610: state3[30] = 0
+ R3611: state3[31] = 0
+ R3612: state3[32] + state3[33] + state3[34] + state3[35] >= 1
+ R3613: state3[36] + state3[37] + state3[38] + state3[39] >= 1
+ R3614: state3[40] + state3[41] + state3[42] + state3[43] >= 1
+ R3615: state3[44] = 0
+ R3616: state3[45] = 0
+ R3617: state3[46] = 0
+ R3618: state3[47] = 0
+ R3619: state3[48] = 0
+ R3620: state3[49] = 0
+ R3621: state3[50] = 0
+ R3622: state3[51] = 0
+ R3623: state3[52] = 0
+ R3624: state3[53] = 0
+ R3625: state3[54] = 0
+ R3626: state3[55] = 0
+ R3627: state3[56] + state3[57] + state3[58] + state3[59] >= 1
+ R3628: state3[60] + state3[61] + state3[62] + state3[63] >= 1
+ R3629: afterM3[0] = 0
+ R3630: afterM3[1] = 0
+ R3631: afterM3[2] = 0
+ R3632: afterM3[3] = 0
+ R3633: afterM3[4] = 0
+ R3634: afterM3[5] = 0
+ R3635: afterM3[6] = 0
+ R3636: afterM3[7] = 0
+ R3637: afterM3[8] = 0
+ R3638: afterM3[9] = 0
+ R3639: afterM3[10] = 0
+ R3640: afterM3[11] = 0
+ R3641: afterM3[12] = 0
+ R3642: afterM3[13] = 0
+ R3643: afterM3[14] = 0
+ R3644: afterM3[15] = 0
+ R3645: afterM3[16] = 0
+ R3646: afterM3[17] = 0
+ R3647: afterM3[18] = 0
+ R3648: afterM3[19] = 0
+ R3649: afterM3[20] = 0
+ R3650: afterM3[21] = 0
+ R3651: afterM3[22] = 0
+ R3652: afterM3[23] = 0
+ R3653: afterM3[24] + afterM3[25] + afterM3[26] + afterM3[27] >= 1
+ R3654: afterM3[28] + afterM3[29] + afterM3[30] + afterM3[31] >= 1
+ R3655: state4[0] + state4[1] + state4[2] + state4[3] >= 1
+ R3656: state4[4] + state4[5] + state4[6] + state4[7] >= 1
+ R3657: state4[8] = 0
+ R3658: state4[9] = 0
+ R3659: state4[10] = 0
+ R3660: state4[11] = 0
+ R3661: state4[12] + state4[13] + state4[14] + state4[15] >= 1
+ R3662: state4[16] + state4[17] + state4[18] + state4[19] >= 1
+ R3663: state4[20] + state4[21] + state4[22] + state4[23] >= 1
+ R3664: state4[24] = 0
+ R3665: state4[25] = 0
+ R3666: state4[26] = 0
+ R3667: state4[27] = 0
+ R3668: state4[28] = 0
+ R3669: state4[29] = 0
+ R3670: state4[30] = 0
+ R3671: state4[31] = 0
+ R3672: state4[32] = 0
+ R3673: state4[33] = 0
+ R3674: state4[34] = 0
+ R3675: state4[35] = 0
+ R3676: state4[36] = 0
+ R3677: state4[37] = 0
+ R3678: state4[38] = 0
+ R3679: state4[39] = 0
+ R3680: state4[40] = 0
+ R3681: state4[41] = 0
+ R3682: state4[42] = 0
+ R3683: state4[43] = 0
+ R3684: state4[44] = 0
+ R3685: state4[45] = 0
+ R3686: state4[46] = 0
+ R3687: state4[47] = 0
+ R3688: state4[48] = 0
+ R3689: state4[49] = 0
+ R3690: state4[50] = 0
+ R3691: state4[51] = 0
+ R3692: state4[52] = 0
+ R3693: state4[53] = 0
+ R3694: state4[54] = 0
+ R3695: state4[55] = 0
+ R3696: state4[56] + state4[57] + state4[58] + state4[59] >= 1
+ R3697: state4[60] = 0
+ R3698: state4[61] = 0
+ R3699: state4[62] = 0
+ R3700: state4[63] = 0
+ R3701: afterM4[0] + afterM4[1] + afterM4[2] + afterM4[3] >= 1
+ R3702: afterM4[4] + afterM4[5] + afterM4[6] + afterM4[7] >= 1
+ R3703: afterM4[8] = 0
+ R3704: afterM4[9] = 0
+ R3705: afterM4[10] = 0
+ R3706: afterM4[11] = 0
+ R3707: afterM4[12] = 0
+ R3708: afterM4[13] = 0
+ R3709: afterM4[14] = 0
+ R3710: afterM4[15] = 0
+ R3711: afterM4[16] = 0
+ R3712: afterM4[17] = 0
+ R3713: afterM4[18] = 0
+ R3714: afterM4[19] = 0
+ R3715: afterM4[20] = 0
+ R3716: afterM4[21] = 0
+ R3717: afterM4[22] = 0
+ R3718: afterM4[23] = 0
+ R3719: afterM4[24] = 0
+ R3720: afterM4[25] = 0
+ R3721: afterM4[26] = 0
+ R3722: afterM4[27] = 0
+ R3723: afterM4[28] = 0
+ R3724: afterM4[29] = 0
+ R3725: afterM4[30] = 0
+ R3726: afterM4[31] = 0
+ R3727: state5[0] = 0
+ R3728: state5[1] = 0
+ R3729: state5[2] = 0
+ R3730: state5[3] = 0
+ R3731: state5[4] = 0
+ R3732: state5[5] = 0
+ R3733: state5[6] = 0
+ R3734: state5[7] = 0
+ R3735: state5[8] + state5[9] + state5[10] + state5[11] >= 1
+ R3736: state5[12] = 0
+ R3737: state5[13] = 0
+ R3738: state5[14] = 0
+ R3739: state5[15] = 0
+ R3740: state5[16] = 0
+ R3741: state5[17] = 0
+ R3742: state5[18] = 0
+ R3743: state5[19] = 0
+ R3744: state5[20] = 0
+ R3745: state5[21] = 0
+ R3746: state5[22] = 0
+ R3747: state5[23] = 0
+ R3748: state5[24] = 0
+ R3749: state5[25] = 0
+ R3750: state5[26] = 0
+ R3751: state5[27] = 0
+ R3752: state5[28] + state5[29] + state5[30] + state5[31] >= 1
+ R3753: state5[32] = 0
+ R3754: state5[33] = 0
+ R3755: state5[34] = 0
+ R3756: state5[35] = 0
+ R3757: state5[36] = 0
+ R3758: state5[37] = 0
+ R3759: state5[38] = 0
+ R3760: state5[39] = 0
+ R3761: state5[40] = 0
+ R3762: state5[41] = 0
+ R3763: state5[42] = 0
+ R3764: state5[43] = 0
+ R3765: state5[44] = 0
+ R3766: state5[45] = 0
+ R3767: state5[46] = 0
+ R3768: state5[47] = 0
+ R3769: state5[48] + state5[49] + state5[50] + state5[51] >= 1
+ R3770: state5[52] + state5[53] + state5[54] + state5[55] >= 1
+ R3771: state5[56] = 0
+ R3772: state5[57] = 0
+ R3773: state5[58] = 0
+ R3774: state5[59] = 0
+ R3775: state5[60] = 0
+ R3776: state5[61] = 0
+ R3777: state5[62] = 0
+ R3778: state5[63] = 0
 Bounds
 Binaries
  state0[0] state0[1] state0[2] state0[3] state0[4] state0[5] state0[6]

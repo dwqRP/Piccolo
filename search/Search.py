@@ -3,15 +3,9 @@ from Bitwise_MILP import *
 import time
 import sys
 
-Min_sbox = [
-    0,
-]
 
-if __name__ == "__main__":
-    start_time = last_time = time.time()
-    p_rounds = 5
-    in_rounds = 4
-    out_rounds = 4
+def Wordwise_solver(in_rounds, p_rounds, out_rounds):
+    # start_time = last_time = time.time()
     Piccolo = Model("Piccolo")
     state_p = {}
     linear = {}
@@ -27,7 +21,7 @@ if __name__ == "__main__":
     obj_out = LinExpr()
     obj = Piccolo.addVar(vtype=GRB.INTEGER, name="obj")
 
-    # distinguisher
+    # Distinguisher
     state_p[0] = Piccolo.addVars(16, vtype=GRB.BINARY, name="state_p0")
     for rd in range(p_rounds):
         linear[rd] = Piccolo.addVars(8, vtype=GRB.BINARY, name="linear" + str(rd))
@@ -94,7 +88,7 @@ if __name__ == "__main__":
     Piccolo.addConstr(sbox >= 1)
     Piccolo.addConstr(sbox <= 32)
 
-    # kin
+    # Kin
     state_in[in_rounds - 1] = Piccolo.addVars(
         8, vtype=GRB.BINARY, name="state_in" + str(in_rounds - 1)
     )
@@ -141,7 +135,7 @@ if __name__ == "__main__":
         for i in range(4):
             obj_in.add(8 * rk_in[rin - 1][i])
 
-    # kout
+    # Kout
     state_out[0] = Piccolo.addVars(8, vtype=GRB.BINARY, name="state_out0")
     Piccolo.update()
     for i in range(8):
@@ -191,24 +185,38 @@ if __name__ == "__main__":
     obj_out.add(2 * sbox)
     Piccolo.addConstr(obj >= obj_in)
     Piccolo.addConstr(obj >= obj_out)
-    # Piccolo.setParam("OutputFlag", 0)
+    Piccolo.setParam("OutputFlag", 0)
     Piccolo.setObjective(obj, GRB.MINIMIZE)
     Piccolo.Params.PoolSearchMode = 2
-    Piccolo.Params.PoolSolutions = 100
+    Piccolo.Params.PoolSolutions = 1
     Piccolo.Params.PoolGap = 0.0
     Piccolo.optimize()
     print("Model Status:", Piccolo.Status)
     if Piccolo.Status == 2:
-        print("SolCount: ", Piccolo.SolCount)
-        print("Minimum Obj: %g" % Piccolo.ObjVal)
+        # print("SolCount: ", Piccolo.SolCount)
+        print("Complexity_max: %g" % Piccolo.ObjVal)
+        min_sbox = sbox.getValue()
+        print("Trail_prob:", 2 * min_sbox)
+        print("Complexity_in:", obj_in.getValue())
+        print("Complexity_out:", obj_out.getValue())
         best_prob = 1000
 
         for k in range(Piccolo.SolCount):
             Piccolo.Params.SolutionNumber = k
-            # for v in Piccolo.getVars():
-            #     if v.VarName.find("rk_in") != -1:
-            #         if abs(v.Xn) > 1e-10:
-            #             print(v.VarName, "=", v.Xn)
+
+            # Print kin guess
+            print("------ kin ------")
+            for ri in range(in_rounds - 1):
+                print(
+                    "Round " + str(ri) + ":",
+                    int(rk_in[ri][0].x),
+                    int(rk_in[ri][1].x),
+                    int(rk_in[ri][2].x),
+                    int(rk_in[ri][3].x),
+                )
+            print("Round " + str(in_rounds - 1) + ": 0 0 0 0")
+            print("-----------------")
+
             #     if v.VarName.find("rk_out") != -1:
             #         if abs(v.Xn) > 1e-10:
             #             print(v.VarName, "=", v.Xn)
@@ -224,7 +232,8 @@ if __name__ == "__main__":
             #                 100 * k / Piccolo.SolCount, round(temp_time - start_time)
             #             )
             #         )
-            min_sbox = sbox.getValue()
+
+            # Output to <wordwise_constraints.txt>
             sys.stdout = open("wordwise_constraints.txt", "w")
             for v in Piccolo.getVars():
                 if v.VarName.find("state_p") != -1:
@@ -233,16 +242,35 @@ if __name__ == "__main__":
                     print(v.VarName, "=", v.Xn)
                 # print(v.VarName, v.Xn)
             sys.stdout = sys.__stdout__
-            # print(sbox)
-            # print(min_sbox)
+
+            # Use bitwise_solver()
             temp_prob = Bitwise_solver(p_rounds, best_prob, min_sbox)
-            #     # print(temp_prob)
+
+            # Print kout guess
+            print("------ kout ------")
+            print("Round " + str(p_rounds + in_rounds) + ": 0 0 0 0")
+            for ro in range(1, out_rounds):
+                print(
+                    "Round " + str(p_rounds + in_rounds + ro) + ":",
+                    int(rk_out[ro][0].x),
+                    int(rk_out[ro][1].x),
+                    int(rk_out[ro][2].x),
+                    int(rk_out[ro][3].x),
+                )
+            print("------------------")
+
             if temp_prob == -1:
                 continue
             if temp_prob < best_prob:
                 best_prob = temp_prob
-            if best_prob == 50:
-                sys.exit()
+            # if best_prob == 2 * min_sbox:
+            #     break
+        return Piccolo.ObjVal
 
         # sys.stdout = sys.__stdout__
         # print("Maximum Probability:", best_prob)
+    return -1
+
+
+if __name__ == "__main__":
+    Wordwise_solver(4, 5, 4)
