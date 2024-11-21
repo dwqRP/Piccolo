@@ -1,0 +1,18 @@
+Differential characteristic found: Probability = 2^{-21}
+Round 0: 0000 0000 1522 0050 
+Round 1: 0000 1500 0000 0022 
+Round 2: 1522 0000 0000 0000 
+Round 3: 0000 0022 000A 1500 
+
+kin=96 (Use prob key rec) for 6 rounds.
+kin: 6,7,2,1,0[L],3[R],4[R],5[L].
+dist for 3 rounds.
+kout=88 for 4 rounds (guess extra 0[R]).
+kout: 0[L],3[R],6,5,2,7 + 0[R].
+
+Covering 3-15 rounds and 16-17 rounds with parallel partitioning.
+15 rounds in total.
+
+similarly, from our asymmetric key guess strategy, we construct the hash table in kout side with 2^{32} S_{15}, and find match in kin side with 2^{29} ciphertexts.
+
+Question: Can we guess extra key bits when matched to cover more rounds in parallel partitioning since the 3rd item in time complexity is small.

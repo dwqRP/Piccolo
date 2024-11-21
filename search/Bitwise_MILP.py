@@ -373,5 +373,5 @@ beforeRP = {}
 
 if __name__ == "__main__":
     # sys.stdout = open("./log/output.txt", "w")
-    Bitwise_solver(5, 1000, 25)
+    Bitwise_solver(3, 1000)
     # When only the bitwise milp is running, specify the num_rounds
