@@ -1,0 +1,36 @@
+Differential characteristic found: Probability = 2^{-40}
+Round 0: 0000 0052 5221 8200 
+Round 1: 0000 5200 8452 0021 
+Round 2: 5224 8400 0000 0052 
+Round 3: 8152 0024 0000 5200 
+Round 4: 0000 0052 5221 8100 
+------ kin ------
+Round 0: 1 1 1 1
+Round 1: 1 1 1 1
+Round 2: 0 1 1 0
+Round 3: 0 0 0 0
+------ kout ------
+Round 8: 0 0 0 0
+Round 9: 1 0 0 1
+Round 10: 1 1 1 1
+Round 11: 1 1 1 1
+------------------------------
+
+
+Differential characteristic found: Probability = 2^{-43}
+Round 0: 22A0 0000 0000 0200 
+Round 1: 0000 00A0 0225 2200 
+Round 2: 0000 0200 11A0 0025 
+Round 3: 02A1 1100 0000 00A0 
+Round 4: 00A0 00A1 0000 0200 
+------ kin ------
+Round 0: 1 1 1 1
+Round 1: 1 1 1 1
+Round 2: 1 0 0 1
+Round 3: 0 0 0 0
+------ kout ------
+Round 8: 0 0 0 0
+Round 9: 0 1 1 0
+Round 10: 1 1 1 1
+Round 11: 1 1 1 1
+------------------------------

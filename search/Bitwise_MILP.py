@@ -314,6 +314,7 @@ def Wordwise_constraints():
             pos = line.find("=")
             idx = int(line[l + 1 : r])
             rd = int(line[l - 1 : l])
+            # print(line[pos + 2 : -1])
             val = float(line[pos + 2 : -1])
             assert abs(1 - val) < 1e-10 or abs(val) < 1e-10
             # print(rd, idx, val)

@@ -188,7 +188,7 @@ def Wordwise_solver(in_rounds, p_rounds, out_rounds):
     Piccolo.setParam("OutputFlag", 0)
     Piccolo.setObjective(obj, GRB.MINIMIZE)
     Piccolo.Params.PoolSearchMode = 2
-    Piccolo.Params.PoolSolutions = 100
+    Piccolo.Params.PoolSolutions = 1
     Piccolo.Params.PoolGap = 0.0
     Piccolo.optimize()
     print("Model Status:", Piccolo.Status)
@@ -204,34 +204,21 @@ def Wordwise_solver(in_rounds, p_rounds, out_rounds):
         for k in range(Piccolo.SolCount):
             Piccolo.Params.SolutionNumber = k
 
-            # Print kin guess
-            # print("------ kin ------")
-            # for ri in range(in_rounds - 1):
-            #     print(
-            #         "Round " + str(ri) + ":",
-            #         int(rk_in[ri][0].x),
-            #         int(rk_in[ri][1].x),
-            #         int(rk_in[ri][2].x),
-            #         int(rk_in[ri][3].x),
-            #     )
-            # print("Round " + str(in_rounds - 1) + ": 0 0 0 0")
-            # print("-----------------")
-
-            #     if v.VarName.find("rk_out") != -1:
-            #         if abs(v.Xn) > 1e-10:
-            #             print(v.VarName, "=", v.Xn)
-            #     if v.VarName.find("state_p") != -1:
-            #         print(v.VarName, "=", v.Xn)
-            #     if v.VarName.find("state_in") != -1:
-            #         print(v.VarName, "=", v.Xn)
-            #     temp_time = time.time()
-            #     if temp_time - last_time > 5:
-            #         last_time = temp_time
-            #         print(
-            #             "Solved {:.2f}%    Time: {}s".format(
-            #                 100 * k / Piccolo.SolCount, round(temp_time - start_time)
-            #             )
-            #         )
+                # if v.VarName.find("rk_out") != -1:
+                #     if abs(v.Xn) > 1e-10:
+                #         print(v.VarName, "=", v.Xn)
+                # if v.VarName.find("state_p") != -1:
+                #     print(v.VarName, "=", v.Xn)
+                # if v.VarName.find("state_in") != -1:
+                #     print(v.VarName, "=", v.Xn)
+                # temp_time = time.time()
+                # if temp_time - last_time > 5:
+                #     last_time = temp_time
+                #     print(
+                #         "Solved {:.2f}%    Time: {}s".format(
+                #             100 * k / Piccolo.SolCount, round(temp_time - start_time)
+                #         )
+                #     )
 
             # Output to <wordwise_constraints.txt>
             sys.stdout = open("wordwise_constraints.txt", "w")
@@ -246,23 +233,35 @@ def Wordwise_solver(in_rounds, p_rounds, out_rounds):
             # Use bitwise_solver()
             temp_prob = Bitwise_solver(p_rounds, best_prob, min_sbox)
 
-            # Print kout guess
-            # print("------ kout ------")
-            # print("Round " + str(p_rounds + in_rounds) + ": 0 0 0 0")
-            # for ro in range(1, out_rounds):
-            #     print(
-            #         "Round " + str(p_rounds + in_rounds + ro) + ":",
-            #         int(rk_out[ro][0].x),
-            #         int(rk_out[ro][1].x),
-            #         int(rk_out[ro][2].x),
-            #         int(rk_out[ro][3].x),
-            #     )
-            # print("------------------")
-
             if temp_prob == -1:
                 continue
             if temp_prob < best_prob:
                 best_prob = temp_prob
+                
+                # Print kin guess
+                print("------ kin ------")
+                for ri in range(in_rounds - 1):
+                    print(
+                        "Round " + str(ri) + ":",
+                        int(rk_in[ri][0].x),
+                        int(rk_in[ri][1].x),
+                        int(rk_in[ri][2].x),
+                        int(rk_in[ri][3].x),
+                    )
+                print("Round " + str(in_rounds - 1) + ": 0 0 0 0")
+                # Print kout guess
+                print("------ kout ------")
+                print("Round " + str(p_rounds + in_rounds) + ": 0 0 0 0")
+                for ro in range(1, out_rounds):
+                    print(
+                        "Round " + str(p_rounds + in_rounds + ro) + ":",
+                        int(rk_out[ro][0].x),
+                        int(rk_out[ro][1].x),
+                        int(rk_out[ro][2].x),
+                        int(rk_out[ro][3].x),
+                    )
+                print("------------------------------")
+                    
             # if best_prob == 2 * min_sbox:
             #     break
         return Piccolo.ObjVal
@@ -273,4 +272,4 @@ def Wordwise_solver(in_rounds, p_rounds, out_rounds):
 
 
 if __name__ == "__main__":
-    Wordwise_solver(5, 3, 5)
+    Wordwise_solver(4, 4, 4)

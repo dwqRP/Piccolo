@@ -242,7 +242,6 @@ if __name__ == "__main__":
         print("Encrypt Passed.")
     if my_piccolo.decrypt(ciphertxt) == 0x0123456789ABCDEF:
         print("Decrypt Passed.")
-    # test_linear_key("input", 4, 0xDA812700000000C2, 0)
-    # test_linear_key("output", 4, 0x22C200810000DA00, 9)
-    test_linear_key("output", 4, 0x00000022000A1500, 9)
+    test_linear_key("input", 4, 0x22A0000000000200  , 0)
+    test_linear_key("output", 4, 0x00A000A100000200 , 9)
     

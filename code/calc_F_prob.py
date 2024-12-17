@@ -47,8 +47,8 @@ def F(input_val):
 
 
 def main():
-    din = 0x24C2
-    dout = 0x5
+    din = 0x02A1
+    dout = 0x1100
     ans = 0
     mx = 1 << 16
 
@@ -58,6 +58,15 @@ def main():
             ans += 1
 
     print(f"{ans}/{mx}={ans / mx:.6f}")
+    
+    # mx = 1 << 16
+    # for k in range(1, 1 << 8):
+    #     din = k << 8
+    #     for i in range(mx):
+    #         delta = F(i) ^ F(i ^ din)
+    #         if delta >> 8 == 0:
+    #             print(hex(din), hex(i))
+
 
 
 if __name__ == "__main__":

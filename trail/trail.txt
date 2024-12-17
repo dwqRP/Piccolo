@@ -16,3 +16,10 @@ Covering 3-15 rounds and 16-17 rounds with parallel partitioning.
 similarly, from our asymmetric key guess strategy, we construct the hash table in kout side with 2^{32} S_{15}, and find match in kin side with 2^{29} ciphertexts.
 
 Question: Can we guess extra key bits when matched to cover more rounds in parallel partitioning since the 3rd item in time complexity is small.
+
+
+Differential characteristic found: Probability = 2^{-20}
+Round 0: CA84 0600 0000 0000 
+Round 1: 0000 0084 0000 CA00 
+Round 2: 0000 0000 CA84 0000 
+Round 3: 0000 CA00 0600 0084 
